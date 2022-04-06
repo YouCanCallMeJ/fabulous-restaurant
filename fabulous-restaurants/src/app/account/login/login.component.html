@@ -1,1 +1,23 @@
-<p>login works!</p>
+<div class="card">
+	<h4 class="card-header">Login</h4>
+	<div class="card-body">
+		<!--<form [formGroup]="form" (ngSubmit)="onSubmit()">-->
+		<form>
+			<div class="form-group">
+				<label for="username">Username</label>
+				<input type="text" class="form-control" id="username" name="username" />
+			</div>
+			<div class="form-group">
+				<label for="password">Password</label>
+				<input type="password" class="form-control" id="password" name="password" />
+			</div>
+			<div class="form-group">
+				<button class="btn btn-primary">
+					<span class="spinner-border spinner-border-sm mr-1"></span>
+					Login
+				</button>
+				<a routerLink="../register" class="btn btn-link">Register</a>
+			</div>
+		</form>
+	</div>
+</div>
