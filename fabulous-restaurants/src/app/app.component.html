@@ -1,15 +1,7 @@
 <!-- nav -->
-<nav class="navbar navbar-expand navbar-dark bg-dark">
-	<div class="navbar-nav">
-		<a class="nav-item nav-link" routerLink="/" routerLinkActive="active">Home</a>
-		<a class="nav-item nav-link" routerLink="/account/login" routerLinkActive="active">Login</a>
-		<a class="nav-item nav-link" routerLink="/account/register" routerLinkActive="active">Register</a>
-		<a class="nav-item nav-link" routerLink="/about" routerLinkActive="active">About</a>
-		<a class="nav-item nav-link" (click)="logout()">Logout</a>
-	</div>
-</nav>
+<app-nav></app-nav>
 
 <!-- main app container -->
-<div class="app-container">
+<div class="container-fluid">
 	<router-outlet></router-outlet>
 </div>
