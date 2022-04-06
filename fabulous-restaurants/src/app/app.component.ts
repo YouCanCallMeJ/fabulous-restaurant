@@ -6,10 +6,14 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'angular-bootstrap-template';
+  title = 'fabulous-restaurants';
   
   constructor() { }
 
   ngOnInit(): void {
+  }
+  
+  logout() {
+  
   }
 }
