@@ -1,8 +1,14 @@
+<!-- nav -->
+<nav class="navbar navbar-expand navbar-dark bg-dark">
+	<div class="navbar-nav">
+		<a class="nav-item nav-link" routerLink="/" routerLinkActive="active">Home</a>
+		<a class="nav-item nav-link" routerLink="/account/login" routerLinkActive="active">Login</a>
+		<a class="nav-item nav-link" routerLink="/account/register" routerLinkActive="active">Register</a>
+		<a class="nav-item nav-link" (click)="logout()">Logout</a>
+	</div>
+</nav>
 
-<!--replace this block-->
-<h1>Template for simple Angular application</h1>
-<h2>Angular 13 with Bootstrap 5</h2>
-<!--replace this block ends-->
-
-
-<router-outlet></router-outlet>
+<!-- main app container -->
+<div class="app-container">
+	<router-outlet></router-outlet>
+</div>
