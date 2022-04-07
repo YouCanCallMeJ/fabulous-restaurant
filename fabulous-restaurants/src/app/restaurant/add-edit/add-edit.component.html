@@ -1,1 +1,34 @@
-<p>add-edit works!</p>
+<div class="card">
+	<h4 class="card-header">Add/Edit Restaurant</h4>
+	<div class="card-body">
+		<form>
+			<div class="form-group mb-3">
+				<label for="restaurantName" class="form-label">Restaurant Name</label>
+				<input type="text" class="form-control" id="restaurantName" name="restaurantName" />
+			</div>
+			<div class="form-group mb-3">
+				<label for="restaurantLocation" class="form-label">Restaurant Location</label>
+				<input type="text" class="form-control" id="restaurantLocation" name="restaurantLocation" />
+			</div>
+			<div class="form-group mb-3">
+				<label for="restaurantMainMenu" class="form-label">Restaurant Main Menu</label>
+				<input type="text" class="form-control" id="restaurantMainMenu" name="restaurantMainMenu" />
+			</div>
+			<div class="form-group mb-3">
+				<label for="restaurantPhone" class="form-label">Restaurant Phone</label>
+				<input type="text" class="form-control" id="restaurantPhone" name="restaurantPhone" />
+			</div>
+			<div class="form-group mb-3">
+				<label for="restaurantPhoto" class="form-label">Restaurant Photo</label>
+				<input type="text" class="form-control" id="restaurantPhoto" name="restaurantPhoto" />
+			</div>
+			<div class="form-group mb-3">
+				<button class="btn btn-primary">
+					<span class="spinner-border spinner-border-sm mr-1"></span>
+					Save
+				</button>
+				<a routerLink="../list" class="btn btn-link">Cancel</a>
+			</div>
+		</form>
+	</div>
+</div>
