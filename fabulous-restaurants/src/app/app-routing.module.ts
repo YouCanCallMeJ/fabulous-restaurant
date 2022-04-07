@@ -15,7 +15,7 @@ const routes: Routes = [
     {path: "restaurant", loadChildren: restaurantModule},
     {path: "review", loadChildren: reviewModule},
     {path: "about", component: AboutComponent},
-    {path: '**', redirectTo: ''}
+    {path: "**", redirectTo: ""}
 ];
 
 @NgModule({
