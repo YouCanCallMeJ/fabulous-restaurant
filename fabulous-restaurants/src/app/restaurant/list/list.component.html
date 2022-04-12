@@ -1,12 +1,28 @@
-<div class="card">
-	<h4 class="card-header">Restaurant A</h4>
-	<div class="card-body">
-		<img src="..." class="card-img-top" alt="Restaurant Photo">
+<h1>Restaurants</h1>
+<div class="text-end">
+	<a routerLink="/restaurant/add" class="btn btn-success mb-2">Add Restaurant</a>
+</div>
+<div *ngFor="let restaurant of restaurants">
+	<div class="card">
+		<div class="card-header">
+			<div class="row">
+				<div class="col">
+					<span class="fs-5">Restaurant</span>
+				</div>
+				<div class="col text-end">
+					<a routerLink="/restaurant/edit/{{restaurant.id}}" class="btn btn-sm btn-primary me-2">Edit</a>
+					<a routerLink="add" class="btn btn-sm btn-danger" me-2>Delete</a>
+				</div>
+			</div>
+		</div>
 		<div class="card-body">
-			<h5 class="card-title">Restaurant Name</h5>
-			<h6 class="card-subtitle mb-2 text-muted">Restaurant Location</h6>
-			<p class="card-text">Restaurant Main Menu</p>
-			<p class="card-text">Restaurant Phone</p>
+			<img src="..." class="card-img-top" alt="Restaurant Photo">
+			<div class="card-body">
+				<h5 class="card-title">{{restaurant.restaurantName}}</h5>
+				<h6 class="card-subtitle mb-2 text-muted">{{restaurant.restaurantLocation}}</h6>
+				<p class="card-text">{{restaurant.restaurantMainMenu}}</p>
+				<p class="card-text">{{restaurant.restaurantPhone}}</p>
+			</div>
 		</div>
 	</div>
 </div>
