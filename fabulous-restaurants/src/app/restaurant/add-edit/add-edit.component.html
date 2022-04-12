@@ -1,22 +1,43 @@
 <div class="card">
-	<h4 class="card-header">Add/Edit Restaurant</h4>
+	<h4 class="card-header" *ngIf="isAddMode">Add Restaurant</h4>
+	<h4 class="card-header" *ngIf="!isAddMode">Edit Restaurant</h4>
 	<div class="card-body">
-		<form>
+		<form [formGroup]="form" (ngSubmit)="onSubmit()">
 			<div class="form-group mb-3">
-				<label for="restaurantName" class="form-label">Restaurant Name</label>
-				<input type="text" class="form-control" id="restaurantName" name="restaurantName" />
+				<!--<label for="restaurantName" class="form-label">Restaurant Name</label>-->
+				<label class="form-label">Restaurant Name</label>
+				<!--<input type="text" formControlName="restaurantName" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.restaurantName.errors }" />-->
+				<input type="text" formControlName="restaurantName" class="form-control" [(ngModel)]="restaurant.restaurantName" />
+				<!--<div *ngIf="submitted && f.restaurantName.errors" class="invalid-feedback">-->
+				<!--	<div *ngIf="f.restaurantName.errors.required">Restaurant Name is required</div>-->
+				<!--</div>-->
 			</div>
 			<div class="form-group mb-3">
-				<label for="restaurantLocation" class="form-label">Restaurant Location</label>
-				<input type="text" class="form-control" id="restaurantLocation" name="restaurantLocation" />
+				<!--<label for="restaurantLocation" class="form-label">Restaurant Location</label>-->
+				<label class="form-label">Restaurant Location</label>
+				<!--<input type="text" formControlName="restaurantLocation" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.restaurantLocation.errors }" />-->
+				<input type="text" formControlName="restaurantLocation" class="form-control" [(ngModel)]="restaurant.restaurantLocation"/>
+				<!--<div *ngIf="submitted && f.restaurantLocation.errors" class="invalid-feedback">-->
+				<!--	<div *ngIf="f.restaurantLocation.errors.required">Restaurant Location is required</div>-->
+				<!--</div>-->
 			</div>
 			<div class="form-group mb-3">
-				<label for="restaurantMainMenu" class="form-label">Restaurant Main Menu</label>
-				<input type="text" class="form-control" id="restaurantMainMenu" name="restaurantMainMenu" />
+				<!--<label for="restaurantMainMenu" class="form-label">Restaurant Main Menu</label>-->
+				<label class="form-label">Restaurant Main Menu</label>
+				<!--<input type="text" formControlName="restaurantMainMenu" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.restaurantMainMenu.errors }" />-->
+				<input type="text" formControlName="restaurantMainMenu" class="form-control" [(ngModel)]="restaurant.restaurantMainMenu" />
+				<!--<div *ngIf="submitted && f.restaurantMainMenu.errors" class="invalid-feedback">-->
+				<!--	<div *ngIf="f.restaurantMainMenu.errors.required">Restaurant Main Menu is required</div>-->
+				<!--</div>-->
 			</div>
 			<div class="form-group mb-3">
-				<label for="restaurantPhone" class="form-label">Restaurant Phone</label>
-				<input type="text" class="form-control" id="restaurantPhone" name="restaurantPhone" />
+				<!--<label for="restaurantPhone" class="form-label">Restaurant Phone</label>-->
+				<label class="form-label">Restaurant Phone</label>
+				<!--<input type="text" formControlName="restaurantPhone" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.restaurantPhone.errors }" />-->
+				<input type="text" formControlName="restaurantPhone" class="form-control" [(ngModel)]="restaurant.restaurantPhone"/>
+				<!--<div *ngIf="submitted && f.restaurantPhone.errors" class="invalid-feedback">-->
+				<!--	<div *ngIf="f.restaurantPhone.errors.required">Restaurant Phone is required</div>-->
+				<!--</div>-->
 			</div>
 			<div class="form-group mb-3">
 				<label for="restaurantPhoto" class="form-label">Restaurant Photo</label>
@@ -27,7 +48,7 @@
 					<span class="spinner-border spinner-border-sm mr-1"></span>
 					Save
 				</button>
-				<a routerLink="../list" class="btn btn-link">Cancel</a>
+				<a routerLink="../../list" class="btn btn-link">Cancel</a>
 			</div>
 		</form>
 	</div>
