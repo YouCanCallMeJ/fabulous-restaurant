@@ -19,4 +19,12 @@ export class ListComponent implements OnInit {
             .catch(error => console.log(error));
     }
     
+    deleteUser(id: number) {
+        const restaurant = this.restaurants.find(x => x.id === id);
+        // restaurant.isDeleting = true;
+        this.restaurantDALService.deleteRestaurant(restaurant, () => {
+            alert("Record deleted successfully");
+        });
+        this.ngOnInit();
+    }
 }
