@@ -1,11 +1,28 @@
-<div class="card">
-	<h4 class="card-header">Review A</h4>
-	<div class="card-body">
+<h1>Reviews</h1>
+<div class="text-end">
+	<a routerLink="/review/add" class="btn btn-success mb-2">Add Review</a>
+</div>
+<div *ngFor="let review of reviews">
+	<div class="card">
+		<div class="card-header">
+			<div class="row">
+				<div class="col">
+					<span class="fs-5">Review</span>
+				</div>
+				<div class="col text-end">
+					<a routerLink="/review/edit/{{review.reviewId}}" class="btn btn-sm btn-primary me-2">Edit</a>
+					<button (click)="deleteReview(review.reviewId)" class="btn btn-sm btn-danger">Delete</button>
+				</div>
+			</div>
+		</div>
 		<div class="card-body">
-			<h5 class="card-title">Restaurant Name</h5>
-			<h6 class="card-subtitle mb-2 text-muted">User Name</h6>
-			<h6 class="card-subtitle mb-2 text-muted">Rating</h6>
-			<p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cum cumque, doloremque eum explicabo illum in inventore ipsam iusto natus neque obcaecati odio officia praesentium, quae quaerat quam quis sapiente sequi tempora voluptates. Minima.</p>
+			<img src="..." class="card-img-top" alt="Review Photo">
+			<div class="card-body">
+				<h5 class="card-title">{{review.restaurantId}}</h5>
+				<h6 class="card-subtitle mb-2 text-muted">{{review.userId}}</h6>
+				<p class="card-text">{{review.reviewRating}}</p>
+				<p class="card-text">{{review.reviewDetail}}</p>
+			</div>
 		</div>
 	</div>
 </div>
