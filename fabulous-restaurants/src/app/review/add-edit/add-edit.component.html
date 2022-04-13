@@ -4,11 +4,11 @@
 	<div class="card-body">
 		<form [formGroup]="form" (ngSubmit)="onSubmit()">
 			<div class="form-group mb-3">
-				<label for="restaurantId" class="form-label">RestaurantId</label>
-				<input type="text" name="restaurantId" id="restaurantId" formControlName="restaurantId" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['restaurantId'].errors }" />
-				<div *ngIf="submitted && f['restaurantId'].errors" class="invalid-feedback">
-					<div *ngIf="f['restaurantId'].errors['required']">RestaurantId is required</div>
-				</div>
+				<label for="restaurantId" class="form-label">Restaurant Name</label>
+				<select formControlName="restaurantId" name="restaurantId" id="restaurantId" class="form-select">
+					<option [ngValue]="null" disabled>Select a Restaurant</option>
+					<option *ngFor="let restaurant of restaurants" [ngValue]="restaurant.id">{{restaurant.restaurantName}}</option>
+				</select>
 			</div>
 			<div class="form-group mb-3">
 				<label for="userId" class="form-label">UserId</label>

@@ -5,6 +5,8 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {RestaurantDatabaseService} from "../../services/restaurant-database.service";
 import {ReviewDALService} from "../../services/review-dal.service";
 import {AlertService} from "../../services/alert.service";
+import {Restaurant} from "../../models/restaurant.model";
+import {RestaurantDALService} from "../../services/restaurant-dal.service";
 
 @Component({
     selector: 'app-add-edit',
@@ -17,12 +19,14 @@ export class AddEditComponent implements OnInit {
     isAddMode: boolean = true;
     submitted = false;
     review: Review = null;
+    restaurants: Restaurant[] = null;
     
     constructor(
         private formBuilder: FormBuilder,
         private route: ActivatedRoute,
         private router: Router,
         private restaurantDatabaseService: RestaurantDatabaseService,
+        private restaurantDALService: RestaurantDALService,
         private reviewDALService: ReviewDALService,
         private alertService: AlertService
     ) { }
@@ -39,6 +43,17 @@ export class AddEditComponent implements OnInit {
             reviewId: ['']
         });
     
+        this.restaurantDALService.selectAllRestaurant()
+            .then(data => {
+                this.restaurants = data;
+                console.log(this.restaurants);
+            })
+            .catch(e => {
+                console.error(e);
+                alert("No restaurant found. Enter a restaurant first.");
+                this.router.navigate(['/restaurant/list']);
+            })
+        
         if (!this.isAddMode) {
             this.reviewDALService.selectReview(this.id)
                 .then(data => {
@@ -51,6 +66,7 @@ export class AddEditComponent implements OnInit {
                         reviewId: this.review.reviewId
                         }
                     );
+                    console.log(this.review.restaurantId);
                 })
                 .catch(e => console.error(e))
         }
