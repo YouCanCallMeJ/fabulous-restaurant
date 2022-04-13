@@ -25,8 +25,7 @@ export class AddEditComponent implements OnInit {
         private restaurantDatabaseService: RestaurantDatabaseService,
         private accountService: AccountService,
         private alertService: AlertService
-    ) {
-    }
+    ) { }
     
     ngOnInit(): void {
         this.id = Number(this.route.snapshot.params['id']);
@@ -34,11 +33,27 @@ export class AddEditComponent implements OnInit {
     
         this.form = this.formBuilder.group({
             username: ['', Validators.required],
-            password: ['', Validators.required],
+            password: ['', Validators.minLength(6)],
             firstName: ['', Validators.required],
-            lastName: ['', Validators.required]
-            // id: ['']
+            lastName: ['', Validators.required],
+            userId: ['']
         });
+    
+        if (!this.isAddMode) {
+            this.accountService.selectUser(this.id)
+                .then(data => {
+                    this.user = data;
+                    this.form.patchValue({
+                            username: this.user.username,
+                            password: '',
+                            firstName: this.user.firstName,
+                            lastName: this.user.lastName,
+                            userId: this.user.userId
+                        }
+                    );
+                })
+                .catch(e => console.error(e))
+        }
     }
     
     // convenience getter for easy access to form fields
@@ -56,10 +71,9 @@ export class AddEditComponent implements OnInit {
         }
     
         if (this.isAddMode) {
-            console.log(this.form.value);
             this.createUser();
         } else {
-            // this.updateUser();
+            this.updateUser();
         }
     }
     
@@ -67,6 +81,17 @@ export class AddEditComponent implements OnInit {
         this.accountService.register(this.form.value, ()=> {
             console.log("Success: Record user added successfully");
             alert("Success: Record user added successfully");
+        });
+    }
+    
+    private updateUser() {
+        if (this.form.value.password === '') {
+            this.form.value.password = this.user.password;
+        }
+        this.accountService.updateUser(this.form.value, ()=> {
+            console.log("Success: Record user updated successfully");
+            alert("Success: Record user updated successfully");
+            this.user = this.form.value;
         });
     }
 }
