@@ -11,7 +11,7 @@
 				</div>
 			</div>
 			<div class="form-group mb-3">
-				<label for="password" class="form-label">Password (Leave blank to keep the password)</label>
+				<label for="password" class="form-label">Password <em *ngIf="!isAddMode">(Leave blank to keep the password)</em></label>
 				<input type="text" name="password" id="password" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['password'].errors }" />
 				<div *ngIf="submitted && f['password'].errors" class="invalid-feedback">
 					<div *ngIf="f['password'].errors['required']">Password is required</div>
