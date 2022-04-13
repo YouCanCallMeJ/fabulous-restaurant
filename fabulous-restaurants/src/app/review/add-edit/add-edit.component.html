@@ -4,21 +4,21 @@
 	<div class="card-body">
 		<form [formGroup]="form" (ngSubmit)="onSubmit()">
 			<div class="form-group mb-3">
-				<label for="restaurantId" class="form-label">Restaurant Name</label>
+				<label for="restaurantId" class="form-label">Restaurant Name *</label>
 				<select formControlName="restaurantId" name="restaurantId" id="restaurantId" class="form-select">
 					<option [ngValue]="null" disabled>Select a Restaurant</option>
 					<option *ngFor="let restaurant of restaurants" [ngValue]="restaurant.id">{{restaurant.restaurantName}}</option>
 				</select>
 			</div>
 			<div class="form-group mb-3">
-				<label for="userId" class="form-label">UserId</label>
+				<label for="userId" class="form-label">UserId *</label>
 				<input type="text" name="userId" id="userId" formControlName="userId" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['userId'].errors }" />
 				<div *ngIf="submitted && f['userId'].errors" class="invalid-feedback">
 					<div *ngIf="f['userId'].errors['required']">UserId is required</div>
 				</div>
 			</div>
 			<div class="form-group mb-3">
-				<label for="reviewRating" class="form-label">Review Rating</label>
+				<label for="reviewRating" class="form-label">Review Rating *</label>
 				<input type="number" name="reviewRating" id="reviewRating" formControlName="reviewRating" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['reviewRating'].errors }" />
 				<div *ngIf="submitted && f['reviewRating'].errors" class="invalid-feedback">
 					<div *ngIf="f['reviewRating'].errors['required']">Review Rating is required</div>
@@ -26,11 +26,15 @@
 				</div>
 			</div>
 			<div class="form-group mb-3">
-				<label for="reviewDetail" class="form-label">Review Detail</label>
+				<label for="reviewDetail" class="form-label">Review Detail *</label>
 				<input type="text" name="reviewDetail" id="reviewDetail" formControlName="reviewDetail" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['reviewDetail'].errors }" />
 				<div *ngIf="submitted && f['reviewDetail'].errors" class="invalid-feedback">
 					<div *ngIf="f['reviewDetail'].errors['required']">Review Detail is required</div>
 				</div>
+			</div>
+			<div class="form-group mb-3">
+				<label for="reviewPhoto" class="form-label">Review Photo</label>
+				<input type="text" name="reviewPhoto" id="reviewPhoto" formControlName="reviewPhoto" class="form-control" />
 			</div>
 			<div class="form-group mb-3">
 				<button class="btn btn-primary">Save</button>
