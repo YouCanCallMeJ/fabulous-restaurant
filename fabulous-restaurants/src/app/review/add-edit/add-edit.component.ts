@@ -36,9 +36,9 @@ export class AddEditComponent implements OnInit {
         this.isAddMode = !this.id;
     
         this.form = this.formBuilder.group({
-            restaurantId: ['', Validators.required],
+            restaurantId: [null, Validators.required],
             userId: ['', Validators.required],
-            reviewRating: ['', Validators.required],
+            reviewRating: ['', [Validators.required, Validators.min(1), Validators.max(5)]],
             reviewDetail: ['', Validators.required],
             reviewId: ['']
         });
