@@ -20,6 +20,10 @@ export class ListComponent implements OnInit {
     }
     
     deleteUser(userId: number) {
-    
+        const user = this.users.find(x => x.userId === userId);
+        this.accountService.deleteUser(user, () => {
+            alert("Record user deleted successfully");
+        });
+        this.ngOnInit();
     }
 }
