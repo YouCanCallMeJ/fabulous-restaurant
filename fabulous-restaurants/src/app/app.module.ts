@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { AboutComponent } from './about/about.component';
 import { NavComponent } from './nav/nav.component';
+import {AuthguardServiceService} from "./services/authguard-service.service";
 
 @NgModule({
   declarations: [
@@ -18,7 +19,9 @@ import { NavComponent } from './nav/nav.component';
     BrowserModule,
     AppRoutingModule
   ],
-  providers: [],
+  providers: [
+      AuthguardServiceService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
