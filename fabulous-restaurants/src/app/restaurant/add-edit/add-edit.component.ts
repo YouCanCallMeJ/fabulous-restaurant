@@ -36,13 +36,24 @@ export class AddEditComponent implements OnInit {
             restaurantName: ['', Validators.required],
             restaurantLocation: ['', Validators.required],
             restaurantMainMenu: ['', Validators.required],
-            restaurantPhone: ['', [Validators.required]]
+            restaurantPhone: ['', [Validators.required]],
+            id: ['']
         });
     
         if (!this.isAddMode) {
             this.restaurantDALService.selectRestaurant(this.id)
-                .then(data => this.restaurant = data)
-                .catch(e => console.error(e));
+                .then(data => {
+                    this.restaurant = data;
+                    this.form.patchValue({
+                        restaurantName: this.restaurant.restaurantName,
+                        restaurantLocation: this.restaurant.restaurantLocation,
+                        restaurantMainMenu: this.restaurant.restaurantMainMenu,
+                        restaurantPhone: this.restaurant.restaurantPhone,
+                        id: this.restaurant.id
+                        }
+                    );
+                })
+                .catch(e => console.error(e))
         }
     }
     
@@ -69,18 +80,6 @@ export class AddEditComponent implements OnInit {
     }
     
     private createRestaurant() {
-        // this.restaurantDatabaseService.insertRestaurant(this.form.value)
-        //     .pipe(first())
-        //     .subscribe({
-        //         next: () => {
-        //             this.alertService.success('User added successfully', { keepAfterRouteChange: true });
-        //             this.router.navigate(['../'], { relativeTo: this.route });
-        //         },
-        //         error: error => {
-        //             this.alertService.error(error);
-        //             this.loading = false;
-        //         }
-        //     });
         this.restaurantDALService.insertRestaurant(this.form.value, ()=> {
             console.log("Success: Record added successfully");
             alert("Success: Record added successfully");
@@ -88,18 +87,6 @@ export class AddEditComponent implements OnInit {
     }
     
     private updateRestaurant() {
-        // this.accountService.update(this.id, this.form.value)
-        //     .pipe(first())
-        //     .subscribe({
-        //         next: () => {
-        //             this.alertService.success('Update successful', { keepAfterRouteChange: true });
-        //             this.router.navigate(['../../'], { relativeTo: this.route });
-        //         },
-        //         error: error => {
-        //             this.alertService.error(error);
-        //             this.loading = false;
-        //         }
-        //     });
         this.restaurantDALService.updateRestaurant(this.form.value, ()=> {
             console.log("Success: Record updated successfully");
             alert("Success: Record updated successfully");

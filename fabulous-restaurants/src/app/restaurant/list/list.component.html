@@ -11,7 +11,11 @@
 				</div>
 				<div class="col text-end">
 					<a routerLink="/restaurant/edit/{{restaurant.id}}" class="btn btn-sm btn-primary me-2">Edit</a>
-					<a routerLink="add" class="btn btn-sm btn-danger" me-2>Delete</a>
+					<!--<button (click)="deleteUser(restaurant.id)" class="btn btn-sm btn-danger btn-delete-user" [disabled]="restaurant.isDeleting">-->
+					<button (click)="deleteUser(restaurant.id)" class="btn btn-sm btn-danger btn-delete-user">Delete
+						<!--<span *ngIf="restaurant.isDeleting" class="spinner-border spinner-border-sm"></span>-->
+						<!--<span *ngIf="!restaurant.isDeleting">Delete</span>-->
+					</button>
 				</div>
 			</div>
 		</div>
