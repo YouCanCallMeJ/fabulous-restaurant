@@ -5,6 +5,7 @@ import { ReviewRoutingModule } from './review-routing.module';
 import { ListComponent } from './list/list.component';
 import { AddEditComponent } from './add-edit/add-edit.component';
 import { LayoutComponent } from './layout/layout.component';
+import {ReactiveFormsModule} from "@angular/forms";
 
 
 @NgModule({
@@ -13,9 +14,10 @@ import { LayoutComponent } from './layout/layout.component';
     AddEditComponent,
     LayoutComponent
   ],
-  imports: [
-    CommonModule,
-    ReviewRoutingModule
-  ]
+    imports: [
+        CommonModule,
+        ReviewRoutingModule,
+        ReactiveFormsModule
+    ]
 })
 export class ReviewModule { }
