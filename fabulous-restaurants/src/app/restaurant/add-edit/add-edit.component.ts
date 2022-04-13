@@ -35,7 +35,7 @@ export class AddEditComponent implements OnInit {
             restaurantName: ['', Validators.required],
             restaurantLocation: ['', Validators.required],
             restaurantMainMenu: ['', Validators.required],
-            restaurantPhone: ['', [Validators.required]],
+            restaurantPhone: ['', [Validators.required, Validators.pattern("^(\\+\\d{1,2}\\s)?\\(?\\d{3}\\)?[\\s.-]?\\d{3}[\\s.-]?\\d{4}$")]],
             id: ['']
         });
     
