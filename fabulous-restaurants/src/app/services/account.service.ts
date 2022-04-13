@@ -1,18 +1,57 @@
 import {Injectable} from '@angular/core';
 import {RestaurantDatabaseService} from "./restaurant-database.service";
 import {User} from "../models/user.model";
-import {Restaurant} from "../models/restaurant.model";
+import {BehaviorSubject, map, Observable} from "rxjs";
+import {Router} from "@angular/router";
 
 @Injectable({
     providedIn: 'root'
 })
 export class AccountService {
+    private userSubject: BehaviorSubject<User>;
+    public user: Observable<User>;
+    users: User[] = null;
+    userFind: User = null;
     
-    constructor() {
+    constructor(private router: Router) {
+        this.userSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('user')));
+        this.user = this.userSubject.asObservable();
+    }
+    
+    public get userValue(): User {
+        return this.userSubject.value;
     }
     
     getDatabaseRestaurant(): any {
         return RestaurantDatabaseService.db;
+    }
+    
+    login(username, password) {
+        this.selectAllUser()
+            .then(data => {
+                this.users = data;
+                this.userFind = this.users.find(x => x.username === username && x.password === password);
+                if (!this.userFind) {
+                    alert('Username or password is incorrect');
+                    return false;
+                }
+                return true;
+            })
+            .catch(error => console.log(error));
+    
+        
+        return {
+            user: this.userFind,
+            token: 'fake-jwt-token'
+        }
+        
+        // this.http.post<User>(`${environment.apiUrl}/users/authenticate`, { username, password })
+        //     .pipe(map(user => {
+        //         // store user details and jwt token in local storage to keep user logged in between page refreshes
+        //         localStorage.setItem('user', JSON.stringify(user));
+        //         this.userSubject.next(user);
+        //         return user;
+        //     }));
     }
     
     register(user: User, callback) {
