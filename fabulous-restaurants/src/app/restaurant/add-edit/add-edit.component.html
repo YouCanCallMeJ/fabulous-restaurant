@@ -4,31 +4,32 @@
 	<div class="card-body">
 		<form [formGroup]="form" (ngSubmit)="onSubmit()">
 			<div class="form-group mb-3">
-				<label for="restaurantName" class="form-label">Restaurant Name</label>
+				<label for="restaurantName" class="form-label">Restaurant Name *</label>
 				<input type="text" name="restaurantName" id="restaurantName" formControlName="restaurantName" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['restaurantName'].errors }" />
 				<div *ngIf="submitted && f['restaurantName'].errors" class="invalid-feedback">
 					<div *ngIf="f['restaurantName'].errors['required']">Restaurant Name is required</div>
 				</div>
 			</div>
 			<div class="form-group mb-3">
-				<label for="restaurantLocation" class="form-label">Restaurant Location</label>
+				<label for="restaurantLocation" class="form-label">Restaurant Location *</label>
 				<input type="text" name="restaurantLocation" id="restaurantLocation" formControlName="restaurantLocation" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['restaurantLocation'].errors }" />
 				<div *ngIf="submitted && f['restaurantLocation'].errors" class="invalid-feedback">
 					<div *ngIf="f['restaurantLocation'].errors['required']">Restaurant Location is required</div>
 				</div>
 			</div>
 			<div class="form-group mb-3">
-				<label for="restaurantMainMenu" class="form-label">Restaurant Main Menu</label>
+				<label for="restaurantMainMenu" class="form-label">Restaurant Main Menu *</label>
 				<input type="text" name="restaurantMainMenu" id="restaurantMainMenu" formControlName="restaurantMainMenu" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['restaurantMainMenu'].errors }" />
 				<div *ngIf="submitted && f['restaurantMainMenu'].errors" class="invalid-feedback">
 					<div *ngIf="f['restaurantMainMenu'].errors['required']">Restaurant Main Menu is required</div>
 				</div>
 			</div>
 			<div class="form-group mb-3">
-				<label for="restaurantPhone" class="form-label">Restaurant Phone</label>
+				<label for="restaurantPhone" class="form-label">Restaurant Phone *</label>
 				<input type="text" name="restaurantPhone" id="restaurantPhone" formControlName="restaurantPhone" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['restaurantPhone'].errors }" />
 				<div *ngIf="submitted && f['restaurantPhone'].errors" class="invalid-feedback">
 					<div *ngIf="f['restaurantPhone'].errors['required']">Restaurant Phone is required</div>
+					<div *ngIf="f['restaurantPhone'].errors['pattern']">Restaurant Phone is not valid format. (e.g., 123-123-1234)</div>
 				</div>
 			</div>
 			<div class="form-group mb-3">
