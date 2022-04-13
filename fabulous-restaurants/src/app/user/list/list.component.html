@@ -1,0 +1,25 @@
+<h1>Users</h1>
+<div class="text-end">
+	<a routerLink="/user/add" class="btn btn-success mb-2">Add User</a>
+</div>
+<div *ngFor="let user of users">
+	<div class="card">
+		<div class="card-header">
+			<div class="row">
+				<div class="col">
+					<span class="fs-5">User</span>
+				</div>
+				<div class="col text-end">
+					<a routerLink="/user/edit/{{user.userId}}" class="btn btn-sm btn-primary me-2">Edit</a>
+					<button (click)="deleteUser(user.userId)" class="btn btn-sm btn-danger">Delete</button>
+				</div>
+			</div>
+		</div>
+		<div class="card-body">
+			<div class="card-body">
+				<h5 class="card-title">{{user.username}}</h5>
+				<h6 class="card-subtitle mb-2 text-muted">{{user.firstName}} {{user.lastName}}</h6>
+			</div>
+		</div>
+	</div>
+</div>
