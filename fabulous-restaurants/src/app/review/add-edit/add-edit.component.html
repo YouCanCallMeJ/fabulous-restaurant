@@ -1,29 +1,39 @@
 <div class="card">
-	<h4 class="card-header">Add/Edit Review</h4>
+	<h4 class="card-header" *ngIf="isAddMode">Add Review</h4>
+	<h4 class="card-header" *ngIf="!isAddMode">Edit Review</h4>
 	<div class="card-body">
-		<form>
+		<form [formGroup]="form" (ngSubmit)="onSubmit()">
 			<div class="form-group mb-3">
-				<label for="username" class="form-label">User Name</label>
-				<input type="text" class="form-control" id="username" name="username" />
+				<label for="restaurantId" class="form-label">RestaurantId</label>
+				<input type="text" name="restaurantId" id="restaurantId" formControlName="restaurantId" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['restaurantId'].errors }" />
+				<div *ngIf="submitted && f['restaurantId'].errors" class="invalid-feedback">
+					<div *ngIf="f['restaurantId'].errors['required']">RestaurantId is required</div>
+				</div>
 			</div>
 			<div class="form-group mb-3">
-				<label for="restaurantName" class="form-label">Restaurant Name</label>
-				<input type="text" class="form-control" id="restaurantName" name="restaurantName" />
+				<label for="userId" class="form-label">UserId</label>
+				<input type="text" name="userId" id="userId" formControlName="userId" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['userId'].errors }" />
+				<div *ngIf="submitted && f['userId'].errors" class="invalid-feedback">
+					<div *ngIf="f['userId'].errors['required']">UserId is required</div>
+				</div>
 			</div>
 			<div class="form-group mb-3">
 				<label for="reviewRating" class="form-label">Review Rating</label>
-				<input type="text" class="form-control" id="reviewRating" name="reviewRating" />
+				<input type="text" name="reviewRating" id="reviewRating" formControlName="reviewRating" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['reviewRating'].errors }" />
+				<div *ngIf="submitted && f['reviewRating'].errors" class="invalid-feedback">
+					<div *ngIf="f['reviewRating'].errors['required']">Review Rating is required</div>
+				</div>
 			</div>
 			<div class="form-group mb-3">
-				<label for="reviewDetail" class="form-label">Review Details</label>
-				<textarea name="reviewDetail" id="reviewDetail" cols="30" rows="10" class="form-control">A little bit pricy... but not too bad!</textarea>
+				<label for="reviewDetail" class="form-label">Review Detail</label>
+				<input type="text" name="reviewDetail" id="reviewDetail" formControlName="reviewDetail" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['reviewDetail'].errors }" />
+				<div *ngIf="submitted && f['reviewDetail'].errors" class="invalid-feedback">
+					<div *ngIf="f['reviewDetail'].errors['required']">Review Detail is required</div>
+				</div>
 			</div>
 			<div class="form-group mb-3">
-				<button class="btn btn-primary">
-					<span class="spinner-border spinner-border-sm mr-1"></span>
-					Save
-				</button>
-				<a routerLink="../list" class="btn btn-link">Cancel</a>
+				<button class="btn btn-primary">Save</button>
+				<a routerLink="../../list" class="btn btn-link">Cancel</a>
 			</div>
 		</form>
 	</div>
