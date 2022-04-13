@@ -19,9 +19,10 @@
 			</div>
 			<div class="form-group mb-3">
 				<label for="reviewRating" class="form-label">Review Rating</label>
-				<input type="text" name="reviewRating" id="reviewRating" formControlName="reviewRating" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['reviewRating'].errors }" />
+				<input type="number" name="reviewRating" id="reviewRating" formControlName="reviewRating" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['reviewRating'].errors }" />
 				<div *ngIf="submitted && f['reviewRating'].errors" class="invalid-feedback">
 					<div *ngIf="f['reviewRating'].errors['required']">Review Rating is required</div>
+					<div *ngIf="f['reviewRating'].errors['min'] || f['reviewRating'].errors['max']">Review Rating is a integer number between 1 to 5</div>
 				</div>
 			</div>
 			<div class="form-group mb-3">
