@@ -15,7 +15,6 @@ export class AddEditComponent implements OnInit {
     form: FormGroup;
     id: number;
     isAddMode: boolean = true;
-    loading = false;
     submitted = false;
     restaurant: Restaurant = null;
     
@@ -70,8 +69,7 @@ export class AddEditComponent implements OnInit {
         if (this.form.invalid) {
             return;
         }
-    
-        this.loading = true;
+        
         if (this.isAddMode) {
             this.createRestaurant();
         } else {
@@ -83,13 +81,13 @@ export class AddEditComponent implements OnInit {
         this.restaurantDALService.insertRestaurant(this.form.value, ()=> {
             console.log("Success: Record added successfully");
             alert("Success: Record added successfully");
-        })
+        });
     }
     
     private updateRestaurant() {
         this.restaurantDALService.updateRestaurant(this.form.value, ()=> {
             console.log("Success: Record updated successfully");
             alert("Success: Record updated successfully");
-        })
+        });
     }
 }
