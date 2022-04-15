@@ -33,9 +33,9 @@ export class AccountService {
                 this.userFind = this.users.find(x => x.username === username && x.password === password);
                 if (!this.userFind) {
                     alert('Username or password is incorrect');
-                    return false;
+                } else {
+                    localStorage.setItem('user', JSON.stringify(this.userFind));
                 }
-                return true;
             })
             .catch(error => console.log(error));
     
@@ -44,14 +44,12 @@ export class AccountService {
             user: this.userFind,
             token: 'fake-jwt-token'
         }
-        
-        // this.http.post<User>(`${environment.apiUrl}/users/authenticate`, { username, password })
-        //     .pipe(map(user => {
-        //         // store user details and jwt token in local storage to keep user logged in between page refreshes
-        //         localStorage.setItem('user', JSON.stringify(user));
-        //         this.userSubject.next(user);
-        //         return user;
-        //     }));
+    }
+    
+    logout() {
+        localStorage.removeItem('user');
+        this.userSubject.next(null);
+        this.router.navigate(['/account/login']);
     }
     
     register(user: User, callback) {
