@@ -1,1 +1,44 @@
-<p>home works!</p>
+<div class="container py-4">
+	<header class="pb-3 mb-4 border-bottom">
+		<h3 class="d-flex align-items-center text-dark text-decoration-none">
+			<svg xmlns="http://www.w3.org/2000/svg" width="40" height="32" fill="currentColor" class="bi bi-bookmark-heart-fill" viewBox="0 0 16 16">
+				<path d="M2 15.5a.5.5 0 0 0 .74.439L8 13.069l5.26 2.87A.5.5 0 0 0 14 15.5V2a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v13.5zM8 4.41c1.387-1.425 4.854 1.07 0 4.277C3.146 5.48 6.613 2.986 8 4.412z"/>
+			</svg><span class="fs-4">What is the app about?</span>
+		</h3>
+	</header>
+
+	<div class="p-5 mb-4 bg-light rounded-3">
+		<div class="container-fluid py-5">
+			<h1 class="display-5 fw-bold">Write reviews!</h1>
+			<p class="col-md-8 fs-4">
+				Leave Ratings ⭐ <br>
+				Leave Comments ✍🏻 <br>
+				Leave Location 🛰️ <br>
+				Leave Phone ☎️ <br>
+			</p>
+			<br>
+			<a routerLink="/account/login"><button class="btn btn-primary me-2" type="button">Login to start</button></a>
+			<a routerLink="/account/register">First time?</a>
+		</div>
+	</div>
+
+	<div class="row align-items-md-stretch">
+		<div class="col-md-6">
+			<div class="h-100 p-5 text-white bg-dark rounded-3">
+				<h2>How to use</h2>
+				<p>
+					1. Login <br>
+					2. Create Restaurants <br>
+					3. Leave Review to the restaurant!
+				</p>
+				<a routerLink="/restaurant/add"><button class="btn btn-outline-light" type="button">Create Restaurants</button></a>
+			</div>
+		</div>
+		<div class="col-md-6">
+			<div class="h-100 p-5 bg-light border rounded-3">
+				<h2>Check the other's reviews!</h2>
+				<img src="assets/restaurant.png" class="img-fluid mb-3" />
+				<a routerLink="/review/list"><button class="btn btn-outline-secondary" type="button">Check Reviews</button></a>
+			</div>
+		</div>
+	</div>
