@@ -15,8 +15,4 @@ export class AppComponent {
     ngOnInit(): void {
         this.restaurantDatabase.initDBRestaurant();
     }
-    
-    logout() {
-    
-    }
 }

@@ -46,7 +46,7 @@ export class LoginComponent implements OnInit {
         if (this.accountService.login(this.f['username'].value, this.f['password'].value)) {
             const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
             console.log(returnUrl);
-            this.router.navigateByUrl(returnUrl).then(r => {});
+            this.router.navigateByUrl(returnUrl);
         }
     }
 }
