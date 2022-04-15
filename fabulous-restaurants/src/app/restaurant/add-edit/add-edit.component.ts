@@ -6,6 +6,9 @@ import {AlertService} from "../../services/alert.service";
 import {RestaurantDALService} from "../../services/restaurant-dal.service";
 import {Restaurant} from "../../models/restaurant.model";
 
+declare function findLocation(): any;
+declare var H: any;
+
 @Component({
     selector: 'app-add-edit',
     templateUrl: './add-edit.component.html',
@@ -17,6 +20,11 @@ export class AddEditComponent implements OnInit {
     isAddMode: boolean = true;
     submitted = false;
     restaurant: Restaurant = null;
+    useLocation: boolean = false;
+    
+    lati: any;
+    lngi: any;
+    address: string;
     
     constructor(
         private formBuilder: FormBuilder,
@@ -54,6 +62,17 @@ export class AddEditComponent implements OnInit {
                 })
                 .catch(e => console.error(e))
         }
+    
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition((position) => {
+                this.lati = position.coords.latitude;
+                this.lngi = position.coords.longitude;
+                console.info('lat : ' + this.lati);
+                console.info('lng : ' + this.lngi);
+            });
+        } else {
+            alert('Geolocation is not supported by this browser.');
+        }
     }
     
     // convenience getter for easy access to form fields
@@ -89,5 +108,54 @@ export class AddEditComponent implements OnInit {
             console.log("Success: Record updated successfully");
             alert("Success: Record updated successfully");
         });
+    }
+    
+    public btnFindLocation_click() {
+        this.useLocation = true;
+    
+        document.getElementById('mapContainer').innerHTML = '';
+        // Initialize the platform object:
+        var platform = new H.service.Platform({
+            'apikey': 'MroIgMS9oYam4pI0Bpef76GWyjt5oNdSvhw4_g-8GT8'
+        });
+    
+        // Obtain the default map types from the platform object
+        var maptypes = platform.createDefaultLayers();
+    
+        var options = {
+            zoom: 15,
+            center: {
+                lat: this.lati, lng: this.lngi
+            }
+        };
+    
+        // Instantiate (and display) a map object:
+        var map = new H.Map(
+            document.getElementById('mapContainer'),
+            maptypes.vector.normal.map,
+            options
+        );
+    
+        var icon = new H.map.Icon('assets/placeholder.png');
+        var marker = new H.map.Marker({
+            lat: this.lati, lng: this.lngi
+        }, {icon: icon});
+    
+        // Add the marker to the map and center the map at the location of the marker:
+        map.addObject(marker);
+    
+        // Simple GET request using fetch
+        const element = document.querySelector('#restaurantLocation');
+        fetch(`https://reverse.geocoder.ls.hereapi.com/6.2/reversegeocode.json?prox=${this.lati}%2C${this.lngi}&mode=retrieveAddresses&maxresults=1&gen=9&apiKey=MroIgMS9oYam4pI0Bpef76GWyjt5oNdSvhw4_g-8GT8`)
+            .then(response => response.json())
+            .then(data => {
+                element.innerHTML = data.Response.MataInfo;
+                console.log(data);
+                console.log(this.lati);
+                console.log(this.lngi);
+                this.form.patchValue({
+                    restaurantLocation: data.Response.View[0].Result[0].Location.Address.Label
+                })
+            });
     }
 }

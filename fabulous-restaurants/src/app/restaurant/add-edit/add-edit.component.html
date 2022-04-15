@@ -11,13 +11,6 @@
 				</div>
 			</div>
 			<div class="form-group mb-3">
-				<label for="restaurantLocation" class="form-label">Restaurant Location *</label>
-				<input type="text" name="restaurantLocation" id="restaurantLocation" formControlName="restaurantLocation" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['restaurantLocation'].errors }" />
-				<div *ngIf="submitted && f['restaurantLocation'].errors" class="invalid-feedback">
-					<div *ngIf="f['restaurantLocation'].errors['required']">Restaurant Location is required</div>
-				</div>
-			</div>
-			<div class="form-group mb-3">
 				<label for="restaurantMainMenu" class="form-label">Restaurant Main Menu *</label>
 				<input type="text" name="restaurantMainMenu" id="restaurantMainMenu" formControlName="restaurantMainMenu" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['restaurantMainMenu'].errors }" />
 				<div *ngIf="submitted && f['restaurantMainMenu'].errors" class="invalid-feedback">
@@ -31,6 +24,15 @@
 					<div *ngIf="f['restaurantPhone'].errors['required']">Restaurant Phone is required</div>
 					<div *ngIf="f['restaurantPhone'].errors['pattern']">Restaurant Phone is not valid format. (e.g., 123-123-1234)</div>
 				</div>
+			</div>
+			<div class="form-group mb-3">
+				<label for="restaurantLocation" class="form-label">Restaurant Location *</label>
+				<input type="text" name="restaurantLocation" id="restaurantLocation" formControlName="restaurantLocation" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['restaurantLocation'].errors }" />
+				<div *ngIf="submitted && f['restaurantLocation'].errors" class="invalid-feedback">
+					<div *ngIf="f['restaurantLocation'].errors['required']">Restaurant Location is required</div>
+				</div>
+				<div id="mapContainer" style="width: 335px; height: 335px" [hidden]="!useLocation"></div>
+				<button type="button" id="btnFindLocation" name="btnFindLocation" class="btn btn-success" (click)="btnFindLocation_click()">Let's use GPS</button>
 			</div>
 			<div class="form-group mb-3">
 				<button class="btn btn-primary">Save</button>
