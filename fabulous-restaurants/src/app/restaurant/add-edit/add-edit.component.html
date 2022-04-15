@@ -31,7 +31,8 @@
 				<div *ngIf="submitted && f['restaurantLocation'].errors" class="invalid-feedback">
 					<div *ngIf="f['restaurantLocation'].errors['required']">Restaurant Location is required</div>
 				</div>
-				<div id="mapContainer" style="width: 335px; height: 335px" [hidden]="!useLocation"></div>
+				<!--<div id="mapContainer" style="width: 335px; height: 335px" [hidden]="!useLocation"></div>-->
+				<div id="mapContainer" style="width: 335px; height: 335px"></div>
 				<button type="button" id="btnFindLocation" name="btnFindLocation" class="btn btn-success" (click)="btnFindLocation_click()">Let's use GPS</button>
 			</div>
 			<div class="form-group mb-3">

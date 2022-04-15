@@ -6,7 +6,6 @@ import {AlertService} from "../../services/alert.service";
 import {RestaurantDALService} from "../../services/restaurant-dal.service";
 import {Restaurant} from "../../models/restaurant.model";
 
-declare function findLocation(): any;
 declare var H: any;
 
 @Component({
@@ -111,8 +110,6 @@ export class AddEditComponent implements OnInit {
     }
     
     public btnFindLocation_click() {
-        this.useLocation = true;
-    
         document.getElementById('mapContainer').innerHTML = '';
         // Initialize the platform object:
         var platform = new H.service.Platform({
@@ -136,6 +133,8 @@ export class AddEditComponent implements OnInit {
             options
         );
     
+        // window.addEventListener('resize', () => map.getViewPort().resize());
+    
         var icon = new H.map.Icon('assets/placeholder.png');
         var marker = new H.map.Marker({
             lat: this.lati, lng: this.lngi
@@ -155,7 +154,7 @@ export class AddEditComponent implements OnInit {
                 console.log(this.lngi);
                 this.form.patchValue({
                     restaurantLocation: data.Response.View[0].Result[0].Location.Address.Label
-                })
+                });
             });
     }
 }
