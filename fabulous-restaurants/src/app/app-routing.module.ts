@@ -10,15 +10,11 @@ const restaurantModule = () => import('./restaurant/restaurant.module').then(x =
 const reviewModule = () => import('./review/review.module').then(x => x.ReviewModule);
 
 const routes: Routes = [
-    {path: "", component: HomeComponent, canActivate: [AuthenticationGuard]},
-    // {path: "", component: HomeComponent},
+    {path: "", component: HomeComponent},
     {path: "account", loadChildren: accountModule},
     {path: "user", loadChildren: userModule, canActivate: [AuthenticationGuard]},
-    // {path: "user", loadChildren: userModule},
-    // {path: "restaurant", loadChildren: restaurantModule, canActivate: [AuthenticationGuard]},
-    {path: "restaurant", loadChildren: restaurantModule},
+    {path: "restaurant", loadChildren: restaurantModule, canActivate: [AuthenticationGuard]},
     {path: "review", loadChildren: reviewModule, canActivate: [AuthenticationGuard]},
-    // {path: "review", loadChildren: reviewModule},
     {path: "about", component: AboutComponent},
     {path: "**", redirectTo: ""}
 ];
