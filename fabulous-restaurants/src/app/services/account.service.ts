@@ -12,6 +12,7 @@ export class AccountService {
     public user: Observable<User>;
     users: User[] = null;
     userFind: User = null;
+    isUsernameValid: Boolean = true;
     
     constructor(private router: Router) {
         this.userSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('user')));
@@ -53,18 +54,43 @@ export class AccountService {
     }
     
     register(user: User, callback) {
-        function txFunction(tx: any) {
-            let sql: string = "INSERT INTO users(username, password, firstName, lastName) VALUES(?, ?, ?, ?);";
-            let options = [
-                user.username,
-                user.password,
-                user.firstName,
-                user.lastName
-            ];
-            tx.executeSql(sql, options, callback, RestaurantDatabaseService.errorHandler);
-        }
+        this.selectAllUser()
+            .then(data => {
+                this.users = data;
+                if (this.users.find(x => x.username === user.username)) {
+                    alert('Username "' + user.username + '" is already taken');
+                } else {
+                    function txFunction(tx: any) {
+                        let sql: string = "INSERT INTO users(username, password, firstName, lastName) VALUES(?, ?, ?, ?);";
+                        let options = [
+                            user.username,
+                            user.password,
+                            user.firstName,
+                            user.lastName
+                        ];
+                        tx.executeSql(sql, options, callback, RestaurantDatabaseService.errorHandler);
+                    }
         
-        this.getDatabaseRestaurant().transaction(txFunction, RestaurantDatabaseService.errorHandler, () => console.log("Success: insert user transaction successfully"));
+                    this.getDatabaseRestaurant().transaction(txFunction, RestaurantDatabaseService.errorHandler, () => console.log("Success: insert user transaction successfully"));
+                }
+            })
+            .catch(error => {
+                console.log(error);
+                if (this.users === null) {
+                    function txFunction(tx: any) {
+                        let sql: string = "INSERT INTO users(username, password, firstName, lastName) VALUES(?, ?, ?, ?);";
+                        let options = [
+                            user.username,
+                            user.password,
+                            user.firstName,
+                            user.lastName
+                        ];
+                        tx.executeSql(sql, options, callback, RestaurantDatabaseService.errorHandler);
+                    }
+    
+                    this.getDatabaseRestaurant().transaction(txFunction, RestaurantDatabaseService.errorHandler, () => console.log("Success: insert user transaction successfully"));
+                }
+            });
     }
     
     selectAllUser(): Promise<any> {
