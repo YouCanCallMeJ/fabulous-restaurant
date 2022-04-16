@@ -1,13 +1,18 @@
 import {Injectable} from '@angular/core';
 import {Restaurant} from "../models/restaurant.model";
 import {RestaurantDatabaseService} from "./restaurant-database.service";
+import {ReviewDALService} from "./review-dal.service";
+import {Review} from "../models/review.model";
 
 @Injectable({
     providedIn: 'root'
 })
 export class RestaurantDALService {
+    reviews: Review[] = null;
     
-    constructor(private restaurantDatabaseService: RestaurantDatabaseService) {
+    constructor(
+        private restaurantDatabaseService: RestaurantDatabaseService,
+        private reviewDALService: ReviewDALService) {
     }
     
     getDatabaseRestaurant(): any {
@@ -69,13 +74,24 @@ export class RestaurantDALService {
     }
     
     deleteRestaurant(restaurant: Restaurant, callback) {
-        function txFunction(tx: any) {
-            let sql: string = "DELETE FROM restaurants WHERE id=?;";
-            let options = [restaurant.id];
-            tx.executeSql(sql, options, callback, RestaurantDatabaseService.errorHandler);
-        }
-        
-        this.getDatabaseRestaurant().transaction(txFunction, RestaurantDatabaseService.errorHandler, () => console.log("Success: delete transaction successfully"));
+        this.reviewDALService.selectAllReview()
+            .then(data => {
+                this.reviews = data;
+                const review = this.reviews.find(x => x.restaurantId === restaurant.id);
+                if (review) {
+                    alert("You need to delete the corresponding reviews first to delete the restaurant.")
+                    return;
+                } else {
+                    function txFunction(tx: any) {
+                        let sql: string = "DELETE FROM restaurants WHERE id=?;";
+                        let options = [restaurant.id];
+                        tx.executeSql(sql, options, callback, RestaurantDatabaseService.errorHandler);
+                    }
+    
+                    this.getDatabaseRestaurant().transaction(txFunction, RestaurantDatabaseService.errorHandler, () => console.log("Success: delete transaction successfully"));
+                }
+            })
+            .catch(error => console.log(error));
     }
     
     updateRestaurant(restaurant: Restaurant, callback) {
