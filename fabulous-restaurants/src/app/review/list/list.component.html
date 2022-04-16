@@ -16,9 +16,8 @@
 			</div>
 		</div>
 		<div class="card-body">
-			<img src="..." class="card-img-top" alt="Review Photo">
 			<div class="card-body">
-				<h5 class="card-title">{{review.restaurantId}}</h5>
+				<h5 class="card-title" *ngFor="let restaurant of restaurants">{{restaurant.id == review.restaurantId ? restaurant.restaurantName : ''}}</h5>
 				<h6 class="card-subtitle mb-2 text-muted">{{review.username}}</h6>
 				<p class="card-text">{{review.reviewRating}}</p>
 				<p class="card-text">{{review.reviewDetail}}</p>
