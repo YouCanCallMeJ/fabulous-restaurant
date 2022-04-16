@@ -8,12 +8,16 @@ import {AccountService} from "../services/account.service";
 })
 export class NavComponent implements OnInit {
     isLogin:Boolean = false;
+    isAdmin:Boolean = false;
     
     constructor(private accountService: AccountService) {
     }
     
     ngOnInit(): void {
         if (this.accountService.userValue) {
+            if (this.accountService.userValue.username === 'admin') {
+                this.isAdmin = true;
+            }
             this.isLogin = true;
         }
     }
@@ -21,5 +25,6 @@ export class NavComponent implements OnInit {
     logout() {
         this.accountService.logout();
         this.isLogin = false;
+        this.isAdmin = false;
     }
 }

@@ -45,7 +45,13 @@ export class RestaurantDatabaseService {
                 "lastName TEXT NOT NULL);";
     
             tx.executeSql(sql, options, () => console.log("Success: create table users successfully"), RestaurantDatabaseService.errorHandler);
-            
+    
+            sql = "INSERT INTO users(username, password, firstName, lastName) " +
+                "SELECT 'admin', 'password', 'Application', 'Manager'" +
+                "WHERE NOT EXISTS (SELECT username FROM users WHERE username = 'admin');";
+    
+            tx.executeSql(sql, options, () => console.log("Success: insert admin user successfully"), RestaurantDatabaseService.errorHandler);
+    
             sql = "CREATE TABLE IF NOT EXISTS reviews(" +
                 "reviewId INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT," +
                 "restaurantId INTEGER NOT NULL," +
