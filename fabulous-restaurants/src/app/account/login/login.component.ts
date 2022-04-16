@@ -2,8 +2,6 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {ActivatedRoute, Router} from '@angular/router';
 import {AccountService} from "../../services/account.service";
-import {AlertService} from "../../services/alert.service";
-import {first} from "rxjs";
 
 @Component({
     selector: 'app-login',
@@ -18,8 +16,7 @@ export class LoginComponent implements OnInit {
         private formBuilder: FormBuilder,
         private route: ActivatedRoute,
         private router: Router,
-        private accountService: AccountService,
-        private alertService: AlertService) {
+        private accountService: AccountService) {
         
         // redirect to home if already logged in
         if (this.accountService.userValue) {
@@ -39,10 +36,7 @@ export class LoginComponent implements OnInit {
     
     onSubmit() {
         this.submitted = true;
-    
-        // reset alerts on submit
-        this.alertService.clear();
-    
+        
         // stop here if form is invalid
         if (this.form.invalid) {
             return;

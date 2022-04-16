@@ -4,7 +4,6 @@ import {Review} from "../../models/review.model";
 import {ActivatedRoute, Router} from "@angular/router";
 import {RestaurantDatabaseService} from "../../services/restaurant-database.service";
 import {ReviewDALService} from "../../services/review-dal.service";
-import {AlertService} from "../../services/alert.service";
 import {Restaurant} from "../../models/restaurant.model";
 import {RestaurantDALService} from "../../services/restaurant-dal.service";
 
@@ -27,8 +26,7 @@ export class AddEditComponent implements OnInit {
         private router: Router,
         private restaurantDatabaseService: RestaurantDatabaseService,
         private restaurantDALService: RestaurantDALService,
-        private reviewDALService: ReviewDALService,
-        private alertService: AlertService
+        private reviewDALService: ReviewDALService
     ) { }
     
     ngOnInit(): void {
@@ -77,9 +75,6 @@ export class AddEditComponent implements OnInit {
     
     onSubmit() {
         this.submitted = true;
-    
-        // reset alerts on submit
-        this.alertService.clear();
     
         // stop here if form is invalid
         if (this.form.invalid) {
