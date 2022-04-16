@@ -41,7 +41,6 @@ export class AccountService {
                     localStorage.setItem('user', JSON.stringify(this.userFind));
                     const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
                     window.location.href = returnUrl;
-                    console.log(returnUrl);
                 }
             })
             .catch(error => console.log(error));
@@ -73,9 +72,15 @@ export class AccountService {
                         tx.executeSql(sql, options, callback, RestaurantDatabaseService.errorHandler);
                     }
         
-                    this.getDatabaseRestaurant().transaction(txFunction, RestaurantDatabaseService.errorHandler, () => console.log("Success: insert user transaction successfully"));
+                    this.getDatabaseRestaurant().transaction(txFunction, RestaurantDatabaseService.errorHandler,
+                        () => {
+                            console.log("Success: insert user transaction successfully");
     
-                    localStorage.setItem("user", JSON.stringify(user));
+                            localStorage.setItem("user", JSON.stringify(user));
+                            
+                            const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+                            window.location.href = returnUrl;
+                        });
                 }
             })
             .catch(error => {
@@ -92,9 +97,15 @@ export class AccountService {
                         tx.executeSql(sql, options, callback, RestaurantDatabaseService.errorHandler);
                     }
     
-                    this.getDatabaseRestaurant().transaction(txFunction, RestaurantDatabaseService.errorHandler, () => console.log("Success: insert user transaction successfully"));
+                    this.getDatabaseRestaurant().transaction(txFunction, RestaurantDatabaseService.errorHandler,
+                        () => {
+                            console.log("Success: insert user transaction successfully");
+                            
+                            localStorage.setItem("user", JSON.stringify(user));
     
-                    localStorage.setItem("user", JSON.stringify(user));
+                            const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+                            window.location.href = returnUrl;
+                        });
                 }
             });
     }
