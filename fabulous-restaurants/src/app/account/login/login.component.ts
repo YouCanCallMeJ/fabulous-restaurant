@@ -48,10 +48,11 @@ export class LoginComponent implements OnInit {
             return;
         }
     
-        if (this.accountService.login(this.f['username'].value, this.f['password'].value)) {
-            const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
-            console.log(returnUrl);
-            this.router.navigateByUrl(returnUrl);
-        }
+        this.accountService.login(this.f['username'].value, this.f['password'].value)
+        // if () {
+        //     const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+        //     console.log(returnUrl);
+        //     this.router.navigateByUrl(returnUrl);
+        // }
     }
 }

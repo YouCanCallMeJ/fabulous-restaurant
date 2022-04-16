@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {RestaurantDatabaseService} from "./restaurant-database.service";
 import {User} from "../models/user.model";
 import {BehaviorSubject, map, Observable} from "rxjs";
-import {Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Injectable({
     providedIn: 'root'
@@ -14,7 +14,10 @@ export class AccountService {
     userFind: User = null;
     isUsernameValid: Boolean = true;
     
-    constructor(private router: Router) {
+    constructor(
+        private route: ActivatedRoute,
+        private router: Router) {
+        
         this.userSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('user')));
         this.user = this.userSubject.asObservable();
     }
@@ -36,15 +39,13 @@ export class AccountService {
                     alert('Username or password is incorrect');
                 } else {
                     localStorage.setItem('user', JSON.stringify(this.userFind));
+                    const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+                    window.location.href = returnUrl;
+                    console.log(returnUrl);
                 }
             })
             .catch(error => console.log(error));
-    
-        
-        return {
-            user: this.userFind,
-            token: 'fake-jwt-token'
-        }
+        return this.userFind;
     }
     
     logout() {
@@ -68,10 +69,13 @@ export class AccountService {
                             user.firstName,
                             user.lastName
                         ];
+                        
                         tx.executeSql(sql, options, callback, RestaurantDatabaseService.errorHandler);
                     }
         
                     this.getDatabaseRestaurant().transaction(txFunction, RestaurantDatabaseService.errorHandler, () => console.log("Success: insert user transaction successfully"));
+    
+                    localStorage.setItem("user", JSON.stringify(user));
                 }
             })
             .catch(error => {
@@ -89,6 +93,8 @@ export class AccountService {
                     }
     
                     this.getDatabaseRestaurant().transaction(txFunction, RestaurantDatabaseService.errorHandler, () => console.log("Success: insert user transaction successfully"));
+    
+                    localStorage.setItem("user", JSON.stringify(user));
                 }
             });
     }
