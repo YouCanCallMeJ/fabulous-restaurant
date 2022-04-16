@@ -91,7 +91,16 @@ export class RestaurantDALService {
                     this.getDatabaseRestaurant().transaction(txFunction, RestaurantDatabaseService.errorHandler, () => console.log("Success: delete transaction successfully"));
                 }
             })
-            .catch(error => console.log(error));
+            .catch(error => {
+                console.log(error);
+                function txFunction(tx: any) {
+                    let sql: string = "DELETE FROM restaurants WHERE id=?;";
+                    let options = [restaurant.id];
+                    tx.executeSql(sql, options, callback, RestaurantDatabaseService.errorHandler);
+                }
+    
+                this.getDatabaseRestaurant().transaction(txFunction, RestaurantDatabaseService.errorHandler, () => console.log("Success: delete transaction successfully"));
+            });
     }
     
     updateRestaurant(restaurant: Restaurant, callback) {
