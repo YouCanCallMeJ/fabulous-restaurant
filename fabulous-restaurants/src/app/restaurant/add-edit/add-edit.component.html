@@ -32,12 +32,12 @@
 					<div *ngIf="f['restaurantLocation'].errors['required']">Restaurant Location is required</div>
 				</div>
 				<div class="text-end">
-					<button type="button" id="btnFindLocation" name="btnFindLocation" class="btn btn-success mt-1 mb-1" (click)="btnFindLocation_click()">Let's use GPS</button>
+					<button type="button" id="btnFindLocation" name="btnFindLocation" class="btn btn-success mt-1 mb-1" (click)="btnFindLocation_click()">Current Location (GPS)</button>
 				</div>
 			</div>
 			<div class="form-group mb-3">
 				<button class="btn btn-primary">Save</button>
-				<a routerLink="../../list" class="btn btn-link">Cancel</a>
+				<a routerLink="../list" class="btn btn-link">Cancel</a>
 			</div>
 			<div id="mapContainer" style="width: 335px; height: 335px"></div>
 		</form>
