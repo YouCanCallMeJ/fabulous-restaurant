@@ -50,7 +50,7 @@ export class AccountService {
     logout() {
         localStorage.removeItem('user');
         this.userSubject.next(null);
-        this.router.navigate(['/account/login']);
+        window.location.href = '/account/login';
     }
     
     register(user: User, callback) {
