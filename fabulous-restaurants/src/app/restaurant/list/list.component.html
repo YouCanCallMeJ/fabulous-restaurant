@@ -2,6 +2,11 @@
 <div class="text-end">
 	<a routerLink="/restaurant/add" class="btn btn-success mb-2">Add Restaurant</a>
 </div>
+<div *ngIf="restaurants === null">
+	<div class="row">
+		<h5>No restaurant has been added yet</h5>
+	</div>
+</div>
 <div *ngFor="let restaurant of restaurants">
 	<div class="card">
 		<div class="card-header">
