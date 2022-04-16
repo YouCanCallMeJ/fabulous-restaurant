@@ -73,7 +73,7 @@ export class AddEditComponent implements OnInit {
     }
     
     private createUser() {
-        this.accountService.register(this.form.value, ()=> {
+        this.accountService.insertUser(this.form.value, ()=> {
             console.log("Success: Record user added successfully");
             alert("Success: Record user added successfully");
         });

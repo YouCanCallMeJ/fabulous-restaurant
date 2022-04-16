@@ -74,7 +74,7 @@ export class AccountService {
         
                     this.getDatabaseRestaurant().transaction(txFunction, RestaurantDatabaseService.errorHandler,
                         () => {
-                            console.log("Success: insert user transaction successfully");
+                            console.log("Success: register user transaction successfully");
     
                             localStorage.setItem("user", JSON.stringify(user));
                             
@@ -99,7 +99,7 @@ export class AccountService {
     
                     this.getDatabaseRestaurant().transaction(txFunction, RestaurantDatabaseService.errorHandler,
                         () => {
-                            console.log("Success: insert user transaction successfully");
+                            console.log("Success: register user transaction successfully");
                             
                             localStorage.setItem("user", JSON.stringify(user));
     
@@ -108,6 +108,30 @@ export class AccountService {
                         });
                 }
             });
+    }
+    
+    insertUser(user: User, callback) {
+        this.selectAllUser()
+            .then(data => {
+                this.users = data;
+                if (this.users.find(x => x.username === user.username)) {
+                    alert('Username "' + user.username + '" is already taken');
+                } else {
+                    function txFunction(tx: any) {
+                        let sql: string = "INSERT INTO users(username, password, firstName, lastName) VALUES(?, ?, ?, ?);";
+                        let options = [
+                            user.username,
+                            user.password,
+                            user.firstName,
+                            user.lastName
+                        ];
+                        tx.executeSql(sql, options, callback, RestaurantDatabaseService.errorHandler);
+                    }
+    
+                    this.getDatabaseRestaurant().transaction(txFunction, RestaurantDatabaseService.errorHandler, () => console.log("Success: insert user transaction successfully"));
+                }
+            })
+            .catch(error => console.log(error));
     }
     
     selectAllUser(): Promise<any> {
@@ -145,15 +169,20 @@ export class AccountService {
     }
     
     deleteUser(user: User, callback) {
-        function txFunction(tx: any) {
-            let sql: string = "DELETE FROM users WHERE userId=?;";
-            let options = [user.userId];
-            
-            console.log(options);
-            tx.executeSql(sql, options, callback, RestaurantDatabaseService.errorHandler);
+        if (user.username === JSON.parse(localStorage.getItem("user")).username) {
+            alert("You cannot delete yourself.")
+            return;
+        } else {
+            function txFunction(tx: any) {
+                let sql: string = "DELETE FROM users WHERE userId=?;";
+                let options = [user.userId];
+
+                console.log(options);
+                tx.executeSql(sql, options, callback, RestaurantDatabaseService.errorHandler);
+            }
+
+            this.getDatabaseRestaurant().transaction(txFunction, RestaurantDatabaseService.errorHandler, () => console.log("Success: delete user transaction successfully"));
         }
-        
-        this.getDatabaseRestaurant().transaction(txFunction, RestaurantDatabaseService.errorHandler, () => console.log("Success: delete user transaction successfully"));
     }
     
     selectUser(userId: number): Promise<any> {
