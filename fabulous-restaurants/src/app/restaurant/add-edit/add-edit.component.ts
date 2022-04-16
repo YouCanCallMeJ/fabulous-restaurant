@@ -132,9 +132,7 @@ export class AddEditComponent implements OnInit {
             options
         );
     
-        // window.addEventListener('resize', () => map.getViewPort().resize());
-    
-        var icon = new H.map.Icon('assets/placeholder.png');
+        var icon = new H.map.Icon('assets/marker.png');
         var marker = new H.map.Marker({
             lat: this.lati, lng: this.lngi
         }, {icon: icon});
