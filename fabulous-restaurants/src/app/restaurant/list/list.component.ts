@@ -21,10 +21,9 @@ export class ListComponent implements OnInit {
     
     deleteRestaurant(id: number) {
         const restaurant = this.restaurants.find(x => x.id === id);
-        // restaurant.isDeleting = true;
         this.restaurantDALService.deleteRestaurant(restaurant, () => {
             alert("Record deleted successfully");
+            window.location.href = '/restaurant/list';
         });
-        this.ngOnInit();
     }
 }

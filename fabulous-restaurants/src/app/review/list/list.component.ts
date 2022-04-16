@@ -38,7 +38,7 @@ export class ListComponent implements OnInit {
         const review = this.reviews.find(x => x.reviewId === reviewId);
         this.reviewDALService.deleteReview(review, () => {
             console.log("Record review deleted successfully");
+            window.location.href = '/review/list';
         });
-        this.ngOnInit();
     }
 }

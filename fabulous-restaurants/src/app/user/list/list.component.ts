@@ -23,7 +23,7 @@ export class ListComponent implements OnInit {
         const user = this.users.find(x => x.userId === userId);
         this.accountService.deleteUser(user, () => {
             alert("Record user deleted successfully");
+            window.location.href = '/user/list';
         });
-        this.ngOnInit();
     }
 }
