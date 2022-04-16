@@ -8,22 +8,22 @@ import {Review} from "../../models/review.model";
     styleUrls: ['./list.component.css']
 })
 export class ListComponent implements OnInit {
-  reviews: Review[] = null;
-  
+    reviews: Review[] = null;
+    
     constructor(private reviewDALService: ReviewDALService) {
     }
     
     ngOnInit(): void {
-      this.reviewDALService.selectAllReview()
-          .then(data => this.reviews = data)
-          .catch(error => console.log(error));
+        this.reviewDALService.selectAllReview()
+            .then(data => this.reviews = data)
+            .catch(error => console.log(error));
     }
-  
-  deleteReview(reviewId: number) {
-      const review = this.reviews.find(x => x.reviewId === reviewId);
-      this.reviewDALService.deleteReview(review, () => {
-          alert("Record review deleted successfully");
-      });
-      this.ngOnInit();
-  }
+    
+    deleteReview(reviewId: number) {
+        const review = this.reviews.find(x => x.reviewId === reviewId);
+        this.reviewDALService.deleteReview(review, () => {
+            console.log("Record review deleted successfully");
+        });
+        this.ngOnInit();
+    }
 }

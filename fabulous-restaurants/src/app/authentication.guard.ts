@@ -14,7 +14,6 @@ export class AuthenticationGuard implements CanActivate {
     
     canActivate(
         route: ActivatedRouteSnapshot,
-        // state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
         state: RouterStateSnapshot) {
             const user = this.accountService.userValue;
             if (user) {
@@ -23,7 +22,5 @@ export class AuthenticationGuard implements CanActivate {
             
             this.router.navigate(['/account/login'], {queryParams: { returnUrl: state.url}});
             return false;
-        
     }
-    
 }
