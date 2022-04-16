@@ -31,14 +31,15 @@
 				<div *ngIf="submitted && f['restaurantLocation'].errors" class="invalid-feedback">
 					<div *ngIf="f['restaurantLocation'].errors['required']">Restaurant Location is required</div>
 				</div>
-				<!--<div id="mapContainer" style="width: 335px; height: 335px" [hidden]="!useLocation"></div>-->
-				<div id="mapContainer" style="width: 335px; height: 335px"></div>
-				<button type="button" id="btnFindLocation" name="btnFindLocation" class="btn btn-success" (click)="btnFindLocation_click()">Let's use GPS</button>
+				<div class="text-end">
+					<button type="button" id="btnFindLocation" name="btnFindLocation" class="btn btn-success mt-1 mb-1" (click)="btnFindLocation_click()">Let's use GPS</button>
+				</div>
 			</div>
 			<div class="form-group mb-3">
 				<button class="btn btn-primary">Save</button>
 				<a routerLink="../../list" class="btn btn-link">Cancel</a>
 			</div>
+			<div id="mapContainer" style="width: 335px; height: 335px"></div>
 		</form>
 	</div>
 </div>

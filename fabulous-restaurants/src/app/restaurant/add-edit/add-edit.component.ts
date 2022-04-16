@@ -19,7 +19,6 @@ export class AddEditComponent implements OnInit {
     isAddMode: boolean = true;
     submitted = false;
     restaurant: Restaurant = null;
-    useLocation: boolean = false;
     
     lati: any;
     lngi: any;
