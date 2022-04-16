@@ -11,10 +11,10 @@
 				</select>
 			</div>
 			<div class="form-group mb-3">
-				<label for="userId" class="form-label">UserId *</label>
-				<input type="text" name="userId" id="userId" formControlName="userId" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['userId'].errors }" />
-				<div *ngIf="submitted && f['userId'].errors" class="invalid-feedback">
-					<div *ngIf="f['userId'].errors['required']">UserId is required</div>
+				<label for="username" class="form-label">Username *</label>
+				<input type="text" name="username" id="username" formControlName="username" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['username'].errors }" readonly />
+				<div *ngIf="submitted && f['username'].errors" class="invalid-feedback">
+					<div *ngIf="f['username'].errors['required']">Username is required</div>
 				</div>
 			</div>
 			<div class="form-group mb-3">
@@ -32,10 +32,6 @@
 					<div *ngIf="f['reviewDetail'].errors['required']">Review Detail is required</div>
 				</div>
 			</div>
-			<!--<div class="form-group mb-3">-->
-			<!--	<label for="reviewPhoto" class="form-label">Review Photo</label>-->
-			<!--	<input type="text" name="reviewPhoto" id="reviewPhoto" formControlName="reviewPhoto" class="form-control" />-->
-			<!--</div>-->
 			<div class="form-group mb-3">
 				<button class="btn btn-primary">Save</button>
 				<a routerLink="../../list" class="btn btn-link">Cancel</a>

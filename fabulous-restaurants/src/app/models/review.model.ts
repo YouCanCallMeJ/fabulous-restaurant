@@ -1,16 +1,16 @@
 export class Review {
     reviewId: number = -1;
     restaurantId: number = -1;
-    userId: number = -1
+    username: string = "";
     reviewRating: number = 0;
     reviewDetail: string = "";
     
     constructor(restaurantId?: number,
-                userId?: number,
+                username?: string,
                 reviewRating?: number,
                 reviewDetail?: string) {
         this.restaurantId = restaurantId;
-        this.userId = userId;
+        this.username = username;
         this.reviewRating = reviewRating;
         this.reviewDetail = reviewDetail;
     }

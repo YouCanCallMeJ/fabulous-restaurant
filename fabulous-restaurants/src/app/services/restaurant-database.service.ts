@@ -49,11 +49,10 @@ export class RestaurantDatabaseService {
             sql = "CREATE TABLE IF NOT EXISTS reviews(" +
                 "reviewId INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT," +
                 "restaurantId INTEGER NOT NULL," +
-                "userId INTEGER NOT NULL," +
+                "username TEXT NOT NULL," +
                 "reviewRating INTEGER NOT NULL," +
                 "reviewDetail TEXT NOT NULL," +
-                "FOREIGN KEY(restaurantId) REFERENCES restaurants(id)," +
-                "FOREIGN KEY(userId) REFERENCES users(userId));";
+                "FOREIGN KEY(restaurantId) REFERENCES restaurants(id));";
 
             tx.executeSql(sql, options, () => console.log("Success: create table reviews successfully"), RestaurantDatabaseService.errorHandler);
         }

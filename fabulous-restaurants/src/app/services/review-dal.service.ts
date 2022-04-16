@@ -17,11 +17,11 @@ export class ReviewDALService {
     insertReview(review: Review, callback) {
         function txFunction(tx: any) {
             let sql: string = "INSERT INTO reviews" +
-                "(restaurantId, userId, reviewRating, reviewDetail) " +
+                "(restaurantId, username, reviewRating, reviewDetail) " +
                 "VALUES(?, ?, ?, ?);";
             let options = [
                 review.restaurantId,
-                review.userId,
+                review.username,
                 review.reviewRating,
                 review.reviewDetail
             ];
@@ -47,7 +47,7 @@ export class ReviewDALService {
                             let row = results.rows[i];
                             let review = new Review(
                                 row['restaurantId'],
-                                row['userId'],
+                                row['username'],
                                 row['reviewRating'],
                                 row['reviewDetail']
                             );
@@ -92,7 +92,7 @@ export class ReviewDALService {
                         let row = results.rows[0];
                         let review = new Review(
                             row['restaurantId'],
-                            row['userId'],
+                            row['username'],
                             row['reviewRating'],
                             row['reviewDetail']
                         );
@@ -114,7 +114,7 @@ export class ReviewDALService {
         function txFunction(tx: any) {
             let sql: string = "UPDATE reviews SET " +
                 "restaurantId=?, " +
-                "userId=?, " +
+                "username=?, " +
                 "reviewRating=?, " +
                 "reviewDetail=? " +
                 "WHERE reviewId=?;";
@@ -122,7 +122,7 @@ export class ReviewDALService {
             // options parameter order does matter here!
             let options = [
                 review.restaurantId,
-                review.userId,
+                review.username,
                 review.reviewRating,
                 review.reviewDetail,
                 review.reviewId

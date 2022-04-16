@@ -34,10 +34,10 @@ export class AddEditComponent implements OnInit {
     ngOnInit(): void {
         this.id = Number(this.route.snapshot.params['id']);
         this.isAddMode = !this.id;
-    
+        
         this.form = this.formBuilder.group({
             restaurantId: [null, Validators.required],
-            userId: ['', Validators.required],
+            username: [JSON.parse(localStorage.getItem("user")).username, Validators.required],
             reviewRating: ['', [Validators.required, Validators.min(1), Validators.max(5)]],
             reviewDetail: ['', Validators.required],
             reviewId: ['']
@@ -60,7 +60,7 @@ export class AddEditComponent implements OnInit {
                     this.review = data;
                     this.form.patchValue({
                         restaurantId: this.review.restaurantId,
-                        userId: this.review.userId,
+                        username: this.review.username,
                         reviewRating: this.review.reviewRating,
                         reviewDetail: this.review.reviewDetail,
                         reviewId: this.review.reviewId
