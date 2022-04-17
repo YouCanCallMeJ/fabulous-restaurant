@@ -123,7 +123,7 @@ export class AddEditComponent implements OnInit {
         const restaurant = this.restaurants.find(x => x.id === id);
         this.restaurantDALService.deleteRestaurant(restaurant, () => {
             alert("Record deleted successfully");
-            this.router.navigate(['/restaurant/list']);
+            this.router.navigateByUrl('/');
         });
     }
     

@@ -101,7 +101,7 @@ export class AddEditComponent implements OnInit {
         const user = this.users.find(x => x.userId === userId);
         this.accountService.deleteUser(user, () => {
             alert("Record user deleted successfully");
-            this.router.navigateByUrl('/user/list');
+            this.router.navigateByUrl('/');
         });
     }
 }

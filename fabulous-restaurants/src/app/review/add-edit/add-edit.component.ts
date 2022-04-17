@@ -114,7 +114,7 @@ export class AddEditComponent implements OnInit {
         const review = this.reviews.find(x => x.reviewId === reviewId);
         this.reviewDALService.deleteReview(review, () => {
             alert("Record review deleted successfully");
-            this.router.navigate(['/review/list']);
+            this.router.navigateByUrl('/');
         });
     }
 }
