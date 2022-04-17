@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { AboutComponent } from './about/about.component';
 import { NavComponent } from './nav/nav.component';
+import {NgxStarRatingModule} from "ngx-star-rating";
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { NavComponent } from './nav/nav.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    NgxStarRatingModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -6,6 +6,7 @@ import { ListComponent } from './list/list.component';
 import { AddEditComponent } from './add-edit/add-edit.component';
 import { LayoutComponent } from './layout/layout.component';
 import {ReactiveFormsModule} from "@angular/forms";
+import {NgxStarRatingModule} from "ngx-star-rating";
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import {ReactiveFormsModule} from "@angular/forms";
     imports: [
         CommonModule,
         ReviewRoutingModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        NgxStarRatingModule
     ]
 })
 export class ReviewModule { }

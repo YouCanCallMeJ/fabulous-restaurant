@@ -34,9 +34,9 @@ export class AddEditComponent implements OnInit {
         this.isAddMode = !this.id;
         
         this.form = this.formBuilder.group({
-            restaurantId: [null, Validators.required],
+            restaurantId: ['', Validators.required],
             username: [JSON.parse(localStorage.getItem("user")).username, Validators.required],
-            reviewRating: ['', [Validators.required, Validators.min(1), Validators.max(5)]],
+            reviewRating: [3, [Validators.required, Validators.min(1), Validators.max(5)]],
             reviewDetail: ['', Validators.required],
             reviewId: ['']
         });
@@ -44,7 +44,6 @@ export class AddEditComponent implements OnInit {
         this.restaurantDALService.selectAllRestaurant()
             .then(data => {
                 this.restaurants = data;
-                console.log(this.restaurants);
             })
             .catch(e => {
                 console.error(e);
