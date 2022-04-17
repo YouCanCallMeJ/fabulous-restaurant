@@ -47,8 +47,10 @@ export class RegisterComponent implements OnInit {
         this.accountService.register(this.form.value, ()=> {
             console.log("Success: Record user added successfully");
             alert("Success: Record user added successfully");
-            const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
-            this.router.navigateByUrl(returnUrl);
-        });
+        })
+            .then(() => {
+                this.router.navigateByUrl('/account/login');
+            })
+            .catch(error => console.error(error));
     }
 }

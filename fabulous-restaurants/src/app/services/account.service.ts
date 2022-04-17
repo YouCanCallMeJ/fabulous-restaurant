@@ -56,58 +56,84 @@ export class AccountService {
     }
     
     register(user: User, callback) {
-        this.selectAllUser()
-            .then(data => {
-                this.users = data;
-                if (this.users.find(x => x.username === user.username)) {
-                    alert('Username "' + user.username + '" is already taken');
-                } else {
-                    function txFunction(tx: any) {
-                        let sql: string = "INSERT INTO users(username, password, firstName, lastName) VALUES(?, ?, ?, ?);";
-                        let options = [
-                            user.username,
-                            user.password,
-                            user.firstName,
-                            user.lastName
-                        ];
+        return new Promise((resolve, reject) => {
+            this.selectAllUser()
+                .then(data => {
+                    this.users = data;
+                    if (this.users.find(x => x.username === user.username)) {
+                        alert('Username "' + user.username + '" is already taken');
+                        reject("Username is already taken");
+                    } else {
+                        function txFunction(tx: any) {
+                            let sql: string = "INSERT INTO users(username, password, firstName, lastName) VALUES(?, ?, ?, ?);";
+                            let options = [
+                                user.username,
+                                user.password,
+                                user.firstName,
+                                user.lastName
+                            ];
+                    
+                            tx.executeSql(sql, options, callback, RestaurantDatabaseService.errorHandler);
+                        }
+                
+                        this.getDatabaseRestaurant().transaction(txFunction, RestaurantDatabaseService.errorHandler,
+                            () => {
+                                console.log("Success: register user transaction successfully");
                         
-                        tx.executeSql(sql, options, callback, RestaurantDatabaseService.errorHandler);
+                                localStorage.setItem("user", JSON.stringify(user));
+                                this.userSubject.next(user);
+                                
+                                resolve(user);
+                            });
                     }
+                })
+                .catch(error => {
+                    console.log(error);
+                    if (this.users === null) {
+                        function txFunction(tx: any) {
+                            let sql: string = "INSERT INTO users(username, password, firstName, lastName) VALUES(?, ?, ?, ?);";
+                            let options = [
+                                user.username,
+                                user.password,
+                                user.firstName,
+                                user.lastName
+                            ];
+                            tx.executeSql(sql, options, callback, RestaurantDatabaseService.errorHandler);
+                        }
+                
+                        this.getDatabaseRestaurant().transaction(txFunction, RestaurantDatabaseService.errorHandler,
+                            () => {
+                                console.log("Success: register user transaction successfully");
+                        
+                                localStorage.setItem("user", JSON.stringify(user));
+                                this.userSubject.next(user);
+                                
+                                resolve(user);
+                            });
+                    } else {
+                        reject("DB Error");
+                    }
+                });
+            
+            // this.selectAllUser()
+            //     .then(data => {
+            //         this.users = data;
+            //         this.userFind = this.users.find(x => x.username === username && x.password === password);
+            //         if (!this.userFind) {
+            //             alert('Username or password is incorrect');
+            //             reject("Username or password is incorrect");
+            //         } else {
+            //             localStorage.setItem('user', JSON.stringify(this.userFind));
+            //             // this.router.navigate(['/']);
+            //             this.userSubject.next(this.userFind);
+            //             resolve(this.userFind);
+            //         }
+            //     })
+            //     .catch(error => console.log(error));
+        });
         
-                    this.getDatabaseRestaurant().transaction(txFunction, RestaurantDatabaseService.errorHandler,
-                        () => {
-                            console.log("Success: register user transaction successfully");
-    
-                            localStorage.setItem("user", JSON.stringify(user));
-    
-                            this.router.navigateByUrl('/');
-                        });
-                }
-            })
-            .catch(error => {
-                console.log(error);
-                if (this.users === null) {
-                    function txFunction(tx: any) {
-                        let sql: string = "INSERT INTO users(username, password, firstName, lastName) VALUES(?, ?, ?, ?);";
-                        let options = [
-                            user.username,
-                            user.password,
-                            user.firstName,
-                            user.lastName
-                        ];
-                        tx.executeSql(sql, options, callback, RestaurantDatabaseService.errorHandler);
-                    }
-    
-                    this.getDatabaseRestaurant().transaction(txFunction, RestaurantDatabaseService.errorHandler,
-                        () => {
-                            console.log("Success: register user transaction successfully");
-                            
-                            localStorage.setItem("user", JSON.stringify(user));
-                            
-                            this.router.navigateByUrl('/');
-                        });
-                }
-            });
+        
+        
     }
     
     insertUser(user: User, callback) {
