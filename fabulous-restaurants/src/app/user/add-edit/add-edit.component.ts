@@ -45,6 +45,7 @@ export class AddEditComponent implements OnInit {
             .catch(error => console.error(error));
         
         if (!this.isAddMode) {
+            this.form.get('password').setValidators([Validators.minLength(6)]);
             this.accountService.selectUser(this.id)
                 .then(data => {
                     this.user = data;
