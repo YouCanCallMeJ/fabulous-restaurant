@@ -2,11 +2,6 @@
 <div class="text-end">
 	<a routerLink="/restaurant/add" class="btn btn-success mb-2">Add Restaurant</a>
 </div>
-<div *ngIf="restaurants === null">
-	<div class="row">
-		<h5>No restaurant has been added yet</h5>
-	</div>
-</div>
 <div *ngFor="let restaurant of restaurants">
 	<div class="card">
 		<div class="card-header">
@@ -15,8 +10,7 @@
 					<span class="fs-5">Restaurant</span>
 				</div>
 				<div class="col text-end">
-					<a routerLink="/restaurant/edit/{{restaurant.id}}" class="btn btn-sm btn-primary me-2">Edit</a>
-					<button (click)="deleteRestaurant(restaurant.id)" class="btn btn-sm btn-danger">Delete</button>
+					<a routerLink="/restaurant/edit/{{restaurant.id}}" class="btn btn-sm btn-primary me-2">Edit/Delete</a>
 				</div>
 			</div>
 		</div>

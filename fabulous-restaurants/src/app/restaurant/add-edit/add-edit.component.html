@@ -35,9 +35,14 @@
 					<button type="button" id="btnFindLocation" name="btnFindLocation" class="btn btn-success mt-1 mb-1" (click)="btnFindLocation_click()">Current Location (GPS)</button>
 				</div>
 			</div>
-			<div class="form-group mb-3">
-				<button class="btn btn-primary">Save</button>
-				<a routerLink="/restaurant/list" class="btn btn-link">Cancel</a>
+			<div class="form-group mb-3 row">
+				<div class="col">
+					<button type="button" *ngIf="!isAddMode" (click)="deleteRestaurant(restaurant.id)" class="btn btn-danger">Delete</button>
+				</div>
+				<div class="col text-end">
+					<button class="btn btn-primary">Save</button>
+					<a routerLink="/restaurant/list" class="btn btn-link">Cancel</a>
+				</div>
 			</div>
 			<div id="mapContainer" style="width: 335px; height: 335px"></div>
 		</form>

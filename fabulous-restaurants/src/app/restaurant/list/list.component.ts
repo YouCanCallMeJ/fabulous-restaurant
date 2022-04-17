@@ -18,12 +18,4 @@ export class ListComponent implements OnInit {
             .then(data => this.restaurants = data)
             .catch(error => console.log(error));
     }
-    
-    deleteRestaurant(id: number) {
-        const restaurant = this.restaurants.find(x => x.id === id);
-        this.restaurantDALService.deleteRestaurant(restaurant, () => {
-            alert("Record deleted successfully");
-            window.location.href = '/restaurant/list';
-        });
-    }
 }

@@ -25,20 +25,14 @@ export class ListComponent implements OnInit {
             .then(data => {
                 this.reviews = data;
             })
-            .catch(error => console.log(error));
+            .catch(error => {
+                console.log(error);
+            });
         this.restaurantDALService.selectAllRestaurant()
             .then(data => {
                 this.restaurants = data;
                 console.log(this.restaurants[0].restaurantName);
             })
             .catch(error => console.log(error));
-    }
-    
-    deleteReview(reviewId: number) {
-        const review = this.reviews.find(x => x.reviewId === reviewId);
-        this.reviewDALService.deleteReview(review, () => {
-            console.log("Record review deleted successfully");
-            window.location.href = '/review/list';
-        });
     }
 }

@@ -2,11 +2,6 @@
 <div class="text-end">
 	<a routerLink="/review/add" class="btn btn-success mb-2">Add Review</a>
 </div>
-<div *ngIf="reviews === null">
-	<div class="row">
-		<h5>No review has been added yet</h5>
-	</div>
-</div>
 <div *ngFor="let review of reviews">
 	<div class="card">
 		<div class="card-header">
@@ -15,8 +10,7 @@
 					<span class="fs-5">Review</span>
 				</div>
 				<div class="col text-end">
-					<a routerLink="/review/edit/{{review.reviewId}}" class="btn btn-sm btn-primary me-2">Edit</a>
-					<button (click)="deleteReview(review.reviewId)" class="btn btn-sm btn-danger">Delete</button>
+					<a routerLink="/review/edit/{{review.reviewId}}" class="btn btn-sm btn-primary me-2">Edit/Delete</a>
 				</div>
 			</div>
 		</div>

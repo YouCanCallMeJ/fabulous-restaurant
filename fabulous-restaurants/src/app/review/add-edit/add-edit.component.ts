@@ -18,6 +18,7 @@ export class AddEditComponent implements OnInit {
     isAddMode: boolean = true;
     submitted = false;
     review: Review = null;
+    reviews: Review[] = null;
     restaurants: Restaurant[] = null;
     
     constructor(
@@ -49,6 +50,13 @@ export class AddEditComponent implements OnInit {
                 console.error(e);
                 alert("No restaurant found. Enter a restaurant first.");
                 this.router.navigate(['/restaurant/list']);
+            })
+        this.reviewDALService.selectAllReview()
+            .then(data => {
+                this.reviews = data;
+            })
+            .catch(e => {
+                console.error(e);
             })
         
         if (!this.isAddMode) {
@@ -99,6 +107,14 @@ export class AddEditComponent implements OnInit {
         this.reviewDALService.updateReview(this.form.value, ()=> {
             console.log("Success: Record review updated successfully");
             alert("Success: Record review updated successfully");
+        });
+    }
+    
+    deleteReview (reviewId: number) {
+        const review = this.reviews.find(x => x.reviewId === reviewId);
+        this.reviewDALService.deleteReview(review, () => {
+            alert("Record review deleted successfully");
+            this.router.navigate(['/review/list']);
         });
     }
 }

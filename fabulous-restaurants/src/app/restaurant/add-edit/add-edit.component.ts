@@ -18,6 +18,7 @@ export class AddEditComponent implements OnInit {
     isAddMode: boolean = true;
     submitted = false;
     restaurant: Restaurant = null;
+    restaurants: Restaurant[] = null;
     
     lati: any;
     lngi: any;
@@ -56,7 +57,13 @@ export class AddEditComponent implements OnInit {
                         }
                     );
                 })
-                .catch(e => console.error(e))
+                .catch(e => console.error(e));
+            
+            this.restaurantDALService.selectAllRestaurant()
+                .then(data => {
+                    this.restaurants = data;
+                })
+                .catch(e => console.error(e));
         }
     
         if (navigator.geolocation) {
@@ -100,6 +107,14 @@ export class AddEditComponent implements OnInit {
         this.restaurantDALService.updateRestaurant(this.form.value, ()=> {
             console.log("Success: Record updated successfully");
             alert("Success: Record updated successfully");
+        });
+    }
+    
+    deleteRestaurant(id: number) {
+        const restaurant = this.restaurants.find(x => x.id === id);
+        this.restaurantDALService.deleteRestaurant(restaurant, () => {
+            alert("Record deleted successfully");
+            this.router.navigate(['/restaurant/list']);
         });
     }
     
