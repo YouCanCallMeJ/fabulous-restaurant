@@ -43,5 +43,9 @@ export class LoginComponent implements OnInit {
         }
     
         this.accountService.login(this.f['username'].value, this.f['password'].value)
+            .then(() => {
+                this.router.navigateByUrl('/');
+            })
+            .catch(error => console.error(error));
     }
 }

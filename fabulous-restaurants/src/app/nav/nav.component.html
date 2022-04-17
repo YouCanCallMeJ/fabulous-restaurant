@@ -7,12 +7,11 @@
 		<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
 			<div class="navbar-nav">
 				<a class="nav-item nav-link" routerLink="/" routerLinkActive="active">Home</a>
-				<a [hidden]="isLogin" class="nav-item nav-link" routerLink="/account/login" routerLinkActive="active">Login</a>
 				<a [hidden]="!isAdmin" class="nav-item nav-link" routerLink="/user/list" routerLinkActive="active">Users</a>
-				<a [hidden]="!isLogin" class="nav-item nav-link" routerLink="/restaurant/list" routerLinkActive="active">Restaurants</a>
-				<a [hidden]="!isLogin" class="nav-item nav-link" routerLink="/review/list" routerLinkActive="active">Reviews</a>
+				<a class="nav-item nav-link" routerLink="/restaurant/list" routerLinkActive="active">Restaurants</a>
+				<a class="nav-item nav-link" routerLink="/review/list" routerLinkActive="active">Reviews</a>
 				<a class="nav-item nav-link" routerLink="/about" routerLinkActive="active">About</a>
-				<a [hidden]="!isLogin" class="nav-item nav-link" (click)="logout()">Logout</a>
+				<a class="nav-item nav-link" (click)="logout()">Logout</a>
 			</div>
 		</div>
 	</div>

@@ -21,6 +21,7 @@ export class AuthenticationGuard implements CanActivate {
             }
             
             this.router.navigate(['/account/login'], {queryParams: { returnUrl: state.url}});
+            alert("You need to login to use service.");
             return false;
     }
 }
