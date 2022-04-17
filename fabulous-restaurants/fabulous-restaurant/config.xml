@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='utf-8'?>
+<widget id="com.example.fabulousrestaurant" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>Fabulous Restaurants</name>
+    <description>Fabulous Restaurants Apache Cordova App</description>
+    <author email="jyang2918@conestogac.on.ca" href="https://www.linkedin.com/in/junseo-yang/">
+        Junseo Yang
+    </author>
+    <content src="index.html" />
+    <access origin="*" />
+    <allow-intent href="http://*/*" />
+    <allow-intent href="https://*/*" />
+
+    <preference name="hostname" value="localhost" />
+    <preference name="AndroidInsecureFileModeEnabled" value="true" />
+
+    <icon src="icon.png"/>
+    <splash src="splash.jpg" />
+</widget>
