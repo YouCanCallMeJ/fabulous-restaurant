@@ -27,12 +27,12 @@
 			</div>
 			<div class="form-group mb-3">
 				<label for="restaurantLocation" class="form-label">Restaurant Location *</label>
-				<input type="text" name="restaurantLocation" id="restaurantLocation" formControlName="restaurantLocation" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['restaurantLocation'].errors }" />
+				<input type="text" name="restaurantLocation" id="restaurantLocation" formControlName="restaurantLocation" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['restaurantLocation'].errors }" [readOnly]="!useGPS"/>
 				<div *ngIf="submitted && f['restaurantLocation'].errors" class="invalid-feedback">
 					<div *ngIf="f['restaurantLocation'].errors['required']">Restaurant Location is required</div>
 				</div>
 				<div class="text-end">
-					<button type="button" id="btnFindLocation" name="btnFindLocation" class="btn btn-success mt-1 mb-1" (click)="btnFindLocation_click()">Current Location (GPS)</button>
+					<button type="button" id="btnFindLocation" name="btnFindLocation" class="btn btn-success mt-1 mb-1" (click)="btnFindLocation_click()" [hidden]="!useGPS">Current Location (GPS)</button>
 				</div>
 			</div>
 			<div class="form-group mb-3 row">

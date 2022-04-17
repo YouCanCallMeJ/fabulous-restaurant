@@ -22,7 +22,7 @@ export class AddEditComponent implements OnInit {
     
     lati: any;
     lngi: any;
-    address: string;
+    useGPS: Boolean = false;
     
     constructor(
         private formBuilder: FormBuilder,
@@ -67,12 +67,21 @@ export class AddEditComponent implements OnInit {
         }
     
         if (navigator.geolocation) {
+            let options = {
+                enableHighAccuracy: true,
+                timeout: 60000,
+                maximumAge: 0
+            };
+
             navigator.geolocation.getCurrentPosition((position) => {
                 this.lati = position.coords.latitude;
                 this.lngi = position.coords.longitude;
-                console.info('lat : ' + this.lati);
-                console.info('lng : ' + this.lngi);
-            });
+                alert("GPS is ready!");
+                this.useGPS = true;
+            }, () => {
+                alert("Can't get current location");
+            }, options);
+            alert('navigator is available.');
         } else {
             alert('Geolocation is not supported by this browser.');
         }
@@ -149,16 +158,13 @@ export class AddEditComponent implements OnInit {
     
         // Add the marker to the map and center the map at the location of the marker:
         map.addObject(marker);
-    
+        
         // Simple GET request using fetch
         const element = document.querySelector('#restaurantLocation');
         fetch(`https://reverse.geocoder.ls.hereapi.com/6.2/reversegeocode.json?prox=${this.lati}%2C${this.lngi}&mode=retrieveAddresses&maxresults=1&gen=9&apiKey=MroIgMS9oYam4pI0Bpef76GWyjt5oNdSvhw4_g-8GT8`)
             .then(response => response.json())
             .then(data => {
                 element.innerHTML = data.Response.MataInfo;
-                console.log(data);
-                console.log(this.lati);
-                console.log(this.lngi);
                 this.form.patchValue({
                     restaurantLocation: data.Response.View[0].Result[0].Location.Address.Label
                 });
