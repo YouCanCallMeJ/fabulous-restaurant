@@ -7,16 +7,10 @@ import {AccountService} from "../services/account.service";
     styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-    isLogin:Boolean = false;
     
     constructor(private accountService: AccountService) {
     }
     
     ngOnInit(): void {
-        if (this.accountService.userValue) {
-            this.isLogin = true;
-        } else {
-            this.isLogin = false;
-        }
     }
 }
