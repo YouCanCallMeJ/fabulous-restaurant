@@ -195,8 +195,8 @@ export class AccountService {
     }
     
     deleteUser(user: User, callback) {
-        if (user.username === JSON.parse(localStorage.getItem("user")).username) {
-            alert("You cannot delete yourself.")
+        if (user.userId === 1) {
+            alert("You cannot delete admin user.")
             return;
         } else {
             function txFunction(tx: any) {
