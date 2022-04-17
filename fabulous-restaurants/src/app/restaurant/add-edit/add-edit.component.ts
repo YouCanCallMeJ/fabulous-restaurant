@@ -81,7 +81,6 @@ export class AddEditComponent implements OnInit {
             }, () => {
                 alert("Can't get current location");
             }, options);
-            alert('navigator is available.');
         } else {
             alert('Geolocation is not supported by this browser.');
         }
