@@ -18,12 +18,4 @@ export class ListComponent implements OnInit {
             .then(data => this.users = data)
             .catch(error => console.log(error));
     }
-    
-    deleteUser(userId: number) {
-        const user = this.users.find(x => x.userId === userId);
-        this.accountService.deleteUser(user, () => {
-            alert("Record user deleted successfully");
-            window.location.href = '/user/list';
-        });
-    }
 }

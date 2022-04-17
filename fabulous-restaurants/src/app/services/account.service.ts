@@ -12,7 +12,6 @@ export class AccountService {
     public user: Observable<User>;
     users: User[] = null;
     userFind: User = null;
-    isUsernameValid: Boolean = true;
     
     constructor(
         private route: ActivatedRoute,
@@ -31,26 +30,29 @@ export class AccountService {
     }
     
     login(username, password) {
-        this.selectAllUser()
-            .then(data => {
-                this.users = data;
-                this.userFind = this.users.find(x => x.username === username && x.password === password);
-                if (!this.userFind) {
-                    alert('Username or password is incorrect');
-                } else {
-                    localStorage.setItem('user', JSON.stringify(this.userFind));
-                    const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
-                    window.location.href = returnUrl;
-                }
-            })
-            .catch(error => console.log(error));
-        return this.userFind;
+        return new Promise((resolve, reject) => {
+            this.selectAllUser()
+                .then(data => {
+                    this.users = data;
+                    this.userFind = this.users.find(x => x.username === username && x.password === password);
+                    if (!this.userFind) {
+                        alert('Username or password is incorrect');
+                        reject("Username or password is incorrect");
+                    } else {
+                        localStorage.setItem('user', JSON.stringify(this.userFind));
+                        // this.router.navigate(['/']);
+                        this.userSubject.next(this.userFind);
+                        resolve(this.userFind);
+                    }
+                })
+                .catch(error => console.log(error));
+        });
     }
     
     logout() {
         localStorage.removeItem('user');
         this.userSubject.next(null);
-        window.location.href = '/account/login';
+        this.router.navigateByUrl('/account/login');
     }
     
     register(user: User, callback) {
@@ -77,9 +79,8 @@ export class AccountService {
                             console.log("Success: register user transaction successfully");
     
                             localStorage.setItem("user", JSON.stringify(user));
-                            
-                            const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
-                            window.location.href = returnUrl;
+    
+                            this.router.navigateByUrl('/');
                         });
                 }
             })
@@ -102,9 +103,8 @@ export class AccountService {
                             console.log("Success: register user transaction successfully");
                             
                             localStorage.setItem("user", JSON.stringify(user));
-    
-                            const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
-                            window.location.href = returnUrl;
+                            
+                            this.router.navigateByUrl('/');
                         });
                 }
             });

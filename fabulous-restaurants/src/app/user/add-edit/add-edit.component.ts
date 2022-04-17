@@ -16,6 +16,7 @@ export class AddEditComponent implements OnInit {
     isAddMode: boolean = true;
     submitted = false;
     user: User = null;
+    users: User[] = null;
     
     constructor(
         private formBuilder: FormBuilder,
@@ -37,6 +38,12 @@ export class AddEditComponent implements OnInit {
             userId: ['']
         });
     
+        this.accountService.selectAllUser()
+            .then(data => {
+                this.users = data;
+            })
+            .catch(error => console.error(error));
+        
         if (!this.isAddMode) {
             this.accountService.selectUser(this.id)
                 .then(data => {
@@ -87,6 +94,14 @@ export class AddEditComponent implements OnInit {
             console.log("Success: Record user updated successfully");
             alert("Success: Record user updated successfully");
             this.user = this.form.value;
+        });
+    }
+    
+    deleteUser(userId: number) {
+        const user = this.users.find(x => x.userId === userId);
+        this.accountService.deleteUser(user, () => {
+            alert("Record user deleted successfully");
+            this.router.navigateByUrl('/user/list');
         });
     }
 }
